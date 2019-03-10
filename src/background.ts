@@ -5,7 +5,49 @@ import {
   createProtocol,
   installVueDevtools,
 } from 'vue-cli-plugin-electron-builder/lib';
+import { FileDataStore } from './utils/user-data';
 const isDevelopment = process.env.NODE_ENV !== 'production';
+const prefs = new FileDataStore({
+  configName: 'user-preferences',
+  defaults: { },
+});
+const tileData = new FileDataStore({
+  configName: 'app-data',
+  defaults: {
+    tiles: [
+      {
+        id: 't0',
+        name: 'default tile',
+        px: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+      },
+    ],
+    palettes: [
+      {
+        id: 'p0',
+        name: 'default palette',
+        colors: [
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+          {red: 146,	green: 182,	blue: 170},
+        ],
+      },
+    ],
+  },
+});
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -20,7 +62,9 @@ function createWindow() {
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string);
-    if (!process.env.IS_TEST) { win.webContents.openDevTools(); }
+    if (!process.env.IS_TEST) {
+      win.webContents.openDevTools();
+    }
   } else {
     createProtocol('app');
     // Load the index.html when not in development
@@ -31,6 +75,7 @@ function createWindow() {
     win = null;
   });
 }
+
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -61,8 +106,10 @@ app.on('ready', async () => {
       console.error('Vue Devtools failed to install:', e.toString());
     }
   }
+  console.log(tileData.data);
   createWindow();
 });
+
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
