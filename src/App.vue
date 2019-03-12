@@ -5,8 +5,7 @@
       <router-link to="/tiles">Tiles</router-link> | 
       <router-link to="/palettes">Palettes</router-link>
     </div>
-    {{ tileData() }}
-    <router-view/>
+    <router-view :tileData="tileData()"/>
   </div>
 </template>
 
