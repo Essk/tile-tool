@@ -1,3 +1,5 @@
+import uniqid from 'uniqid';
+
 type Opts = {
     name: string;
 };
@@ -19,7 +21,7 @@ export class Tile {
         }
     }
     private makeId(): string {
-        return 'this is the id';
+        return uniqid('tile-');
     }
     private makePx(len: number): number[] {
         const px = [];

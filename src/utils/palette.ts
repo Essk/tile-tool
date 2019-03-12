@@ -1,4 +1,5 @@
 import { Color } from './color';
+import uniqid from 'uniqid';
 type Opts = {
     name: string;
 };
@@ -39,7 +40,7 @@ export class Palette {
         return colors;
     }
     private makeId(): string {
-        return 'this is the id';
+        return uniqid('palette-');
     }
     private validIdx(idx: number): boolean {
         return Number.isInteger(idx) && idx >= 0 && idx < this._len;
