@@ -34,5 +34,8 @@ describe('Color', () => {
     color = new Color({red: 255, green:	-7, blue:	95});
     expect(color).toEqual({_red: 255, _green: 255, _blue: 95});
   });
+  it('provides an array of valid values', () => {
+    expect(Color.validValues()).toEqual([ 0, 31, 63, 95, 127, 159, 191, 223, 255 ]);
+  });
 
 });

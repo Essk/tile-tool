@@ -4,7 +4,7 @@ interface IColor {
     green: number;
     blue: number;
 }
-
+import { uniq } from 'lodash';
 export class Color {
     public static asHex(color: IColor ): string {
         return  `#${Color.decToHex(color.red)}${Color.decToHex(color.green)}${Color.decToHex(color.blue)}`;
@@ -12,6 +12,17 @@ export class Color {
     public static decToHex(dec: number): string {
         const hex = dec.toString(16).toUpperCase();
         return `${hex}${hex}`.substring(0, 2);
+    }
+    public static validValues(): number[] {
+        const values = [0];
+        for (let i = 0; i < 256; i ++) {
+            const floor = ( i >> 5 ) << 5;
+            const ceil = (floor | 31);
+            if (ceil === i) {
+                values.push(i);
+            }
+        }
+        return uniq(values);
     }
     private _red: number;
     private _green: number;
