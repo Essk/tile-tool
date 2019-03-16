@@ -6,6 +6,9 @@ interface IColor {
 }
 
 export class Color {
+    public static asHex(color: IColor ): string {
+        return  `#${Color.decToHex(color.red)}${Color.decToHex(color.green)}${Color.decToHex(color.blue)}`;
+    }
     public static decToHex(dec: number): string {
         const hex = dec.toString(16).toUpperCase();
         return `${hex}${hex}`.substring(0, 2);

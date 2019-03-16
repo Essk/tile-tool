@@ -13,6 +13,9 @@ describe('Color', () => {
     expect(Color.decToHex(146)).toEqual('92');
     expect(Color.decToHex(85)).toEqual('55');
   });
+  it('converts colors to hex strings', () => {
+    expect (Color.asHex({red: 255, green:	159, blue:	95})).toEqual('#FF9F5F');
+  });
   it('instantiates', () => {
     const color = new Color();
     expect(color).toBeInstanceOf(Color);
