@@ -17,20 +17,12 @@ describe('Tile', () => {
   });
   it('has a pixel array of the correct length of 0s', () => {
     const tile = new Tile({name: ''});
-    expect(tile.px).toEqual([0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0]);
+    expect(tile.px).toMatchSnapshot();
   });
   it('updates valid pixel data', () => {
     const tile = new Tile({name: ''});
     tile.updatePx(3, 12);
-    expect(tile.px).toEqual([0, 0, 0, 12, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0]);
+    expect(tile.px).toMatchSnapshot();
   });
   it('rejects invalid pixel data', () => {
     const tile = new Tile({name: ''});
@@ -40,10 +32,6 @@ describe('Tile', () => {
     tile.updatePx(5, 2.4);
     tile.updatePx(5, -3);
     tile.updatePx(3.6, -3);
-    expect(tile.px).toEqual([0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0]);
+    expect(tile.px).toMatchSnapshot();
   });
 });
