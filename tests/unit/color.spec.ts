@@ -1,41 +1,44 @@
 import { Color } from '@/utils/color';
 
 describe('Color', () => {
-  it('shoud normalise 8 bit numbers to the 3 most significant bits', () => {
-    const color = new Color({red: 223, green: 72, blue: 161});
-    expect(color.red).toEqual(223);
-    expect(color.green).toEqual(64);
-    expect(color.blue).toEqual(160);
-  });
-  it('converts decimal to hex', () => {
-    expect(Color.decToHex(0)).toEqual('00');
-    expect(Color.decToHex(255)).toEqual('FF');
-    expect(Color.decToHex(146)).toEqual('92');
-    expect(Color.decToHex(85)).toEqual('55');
-  });
-  it('converts colors to hex strings', () => {
-    expect (Color.asHex({red: 255, green:	159, blue:	95})).toEqual('#FF9F5F');
-  });
-  it('instantiates', () => {
-    const color = new Color();
-    expect(color).toBeInstanceOf(Color);
-    expect(color).toEqual({_red: 255, _green: 255, _blue: 255});
-  });
-  it('accepts and returns a valid color', () => {
-    const color = new Color({red: 255, green:	159, blue:	95});
-    expect(color).toEqual({_red: 255, _green:	159, _blue:	95});
+ it('instantiates', () => {
+   const emptyColor = new Color();
+   expect(emptyColor).toHaveProperty('_red', 255);
+   expect(emptyColor).toHaveProperty('_green', 255);
+   expect(emptyColor).toHaveProperty('_blue', 255);
   });
 
-  it('corrects invalid color values', () => {
-    let color = new Color({red: 355, green:	159, blue:	95});
-    expect(color).toEqual({_red: 255, _green: 159, _blue: 95});
-    color = new Color({red: 255, green:	0.3, blue:	95});
-    expect(color).toEqual({_red: 255, _green: 0, _blue: 95});
-    color = new Color({red: 255, green:	-7, blue:	95});
-    expect(color).toEqual({_red: 255, _green: 255, _blue: 95});
+ it('shoud normalise reds to the 3bit Next scale', () => {
+    const red = new Color({red: 111, green: 0, blue: 0});
+    expect(red).toHaveProperty('_red', 109);
   });
-  it('provides an array of valid values', () => {
-    expect(Color.validValues()).toEqual([ 0, 31, 63, 95, 127, 159, 191, 223, 255 ]);
+ it('shoud normalise greens to the 3bit Next scale', () => {
+    const green = new Color({red: 0, green: 201, blue: 0});
+    expect(green).toHaveProperty('_green', 182);
   });
+ it('shoud normalise blues to the 2bit Next scale', () => {
+    const blue = new Color({red: 0, green: 0, blue: 65});
+    expect(blue).toHaveProperty('_blue', 85);
+  });
+ it('provides an array of next values', () => {
+    const colors = Color.nextColors();
+    expect(colors).toMatchSnapshot();
+  });
+
+ it('converts decimal to hex', () => {
+    expect(Color.decToHex(255)).toEqual('FF');
+    expect(Color.decToHex(190)).toEqual('BE');
+    expect(Color.decToHex(73)).toEqual('49');
+    expect(Color.decToHex(0)).toEqual('00');
+  });
+ it('converts colors to hex strings', () => {
+    expect(Color.asHex({red: 255, green: 255, blue: 255})).toEqual('#FFFFFF');
+    expect(Color.asHex({red: 21, green: 0, blue: 56})).toEqual('#150038');
+    expect(Color.asHex({red: 97, green: 201, blue: 33})).toEqual('#61C921');
+  });
+
+
 
 });
+
+

@@ -1,54 +1,85 @@
 /* tslint:disable: no-bitwise */
-interface IColor {
-    red: number;
-    green: number;
-    blue: number;
-}
-import { uniq } from 'lodash';
 export class Color {
     public static asHex(color: IColor ): string {
         return  `#${Color.decToHex(color.red)}${Color.decToHex(color.green)}${Color.decToHex(color.blue)}`;
     }
     public static decToHex(dec: number): string {
-        const hex = dec.toString(16).toUpperCase();
+        const clampedDec = clampedValue(dec);
+        const hex = clampedDec.toString(16).toUpperCase();
         return `${hex}${hex}`.substring(0, 2);
     }
-    public static validValues(): number[] {
-        const values = [0];
-        for (let i = 0; i < 256; i ++) {
-            const floor = ( i >> 5 ) << 5;
-            const ceil = (floor | 31);
-            if (ceil === i) {
-                values.push(i);
+    public static nextColors(): Color[] {
+        const color = new Color();
+        const colors: Color[] = [];
+        const three = color.threeBitScale;
+        const two = color.twoBitScale;
+        // tslint:disable-next-line:prefer-for-of
+        for (let r = 0; r < three.length; r ++) {
+            // tslint:disable-next-line:prefer-for-of
+            for (let g = 0; g < three.length; g++) {
+                // tslint:disable-next-line:prefer-for-of
+                for (let b = 0; b < two.length; b++) {
+                    colors.push( new Color({ red: three[r], green: three[g], blue: two[b] }));
+                }
             }
         }
-        return uniq(values);
+        return colors;
     }
+    public readonly twoBitScale: number [];
+    public readonly threeBitScale: number [];
     private _red: number;
     private _green: number;
     private _blue: number;
     constructor(opts?: IColor) {
+        this.threeBitScale = [0, 36, 73, 109, 146, 182, 219, 255];
+        this.twoBitScale = [0, 85, 170, 255];
         if ( typeof opts !== 'undefined') {
-            this._red = this.normalise(opts.red);
-            this._green = this.normalise(opts.green);
-            this._blue = this.normalise(opts.blue);
+            this._red = this.normaliseThree(opts.red);
+            this._green = this.normaliseThree(opts.green);
+            this._blue = this.normaliseTwo(opts.blue);
         } else {
             this._red =  255;
             this._green = 255;
             this._blue =  255;
         }
     }
-    private normalise(value: number): number {
-        const clampedValue = ( value >= 0 && value <= 255 ) ? value : 255;
-        const floor = ( clampedValue >> 5 ) << 5;
-        const ceil = (floor | 31);
-        if (floor === clampedValue || ceil === clampedValue) {
-            return clampedValue;
-        }
-        return this.shouldCeil(clampedValue) ? ceil : floor;
+    private normaliseThree(value: number): number {
+        const clamped = clampedValue(value);
+        const eightBitVal = this.roundEightBit(clamped);
+        return this.matchNextValue(eightBitVal, this.threeBitScale);
     }
-    private  shouldCeil(number: number): boolean {
-        return !!(number & 16);
+    private normaliseTwo(value: number): number {
+        const clamped = clampedValue(value);
+        const eightBitVal = this.roundEightBit(clamped);
+        return this.matchNextValue(eightBitVal, this.twoBitScale);
+    }
+    private roundEightBit(num: number) {
+        const remainder = num % 32;
+        if (remainder !== 0 ) {
+            if (remainder >= 16) {
+                return num + (32 - remainder) ;
+            }
+            return num - remainder;
+        }
+        return num;
+    }
+    private matchNextValue(num: number, scale: number[]): number {
+        let i = 0;
+        const values = scale;
+        const lastInScale = scale[scale.length - 1];
+        if (num >= lastInScale) {
+            return lastInScale;
+        }
+        while ( (num >= values [i] && num >= values [i + 1]) && i < (values.length - 1) ) {
+            i++;
+        }
+        const gapToLower = num - values[i];
+        const gapToHigher = values[i + 1] - num;
+        if ( gapToLower < gapToHigher) {
+            return values[i];
+        } else {
+            return values[i + 1];
+        }
     }
     get red() {
         return this._red;
@@ -60,3 +91,21 @@ export class Color {
         return this._blue;
     }
 }
+
+export interface IColor {
+    red: number;
+    green: number;
+    blue: number;
+}
+
+/**
+ * makes sure we have an integer 0 - 255
+ */
+export function clampedValue(value: number): number {
+    const int = parseInt( value.toString(10), 10);
+    return ( int >= 0 && int <= 255 ) ? int : 255;
+}
+
+
+
+
