@@ -41,4 +41,7 @@ export default class App extends Vue {
 }
 </script>
 <style lang="scss">
+  html{
+    font-family: 'Rubik', 'Helvetica', sans-serif;
+  }
 </style>

@@ -18,8 +18,8 @@ export class Color {
             // tslint:disable-next-line:prefer-for-of
             for (let g = 0; g < three.length; g++) {
                 // tslint:disable-next-line:prefer-for-of
-                for (let b = 0; b < two.length; b++) {
-                    colors.push( new Color({ red: three[r], green: three[g], blue: two[b] }));
+                for (let b = 0; b < three.length; b++) {
+                    colors.push( new Color({ red: three[r], green: three[g], blue: three[b] }));
                 }
             }
         }
@@ -30,18 +30,20 @@ export class Color {
     private _red: number;
     private _green: number;
     private _blue: number;
+    private _hex: string;
     constructor(opts?: IColor) {
         this.threeBitScale = [0, 36, 73, 109, 146, 182, 219, 255];
         this.twoBitScale = [0, 85, 170, 255];
         if ( typeof opts !== 'undefined') {
             this._red = this.normaliseThree(opts.red);
             this._green = this.normaliseThree(opts.green);
-            this._blue = this.normaliseTwo(opts.blue);
+            this._blue = this.normaliseThree(opts.blue);
         } else {
             this._red =  255;
             this._green = 255;
             this._blue =  255;
         }
+        this._hex = Color.asHex({red: this._red, green: this._green, blue: this._blue});
     }
     private normaliseThree(value: number): number {
         const clamped = clampedValue(value);
@@ -89,6 +91,9 @@ export class Color {
     }
     get blue() {
         return this._blue;
+    }
+    get hex() {
+        return this._hex;
     }
 }
 
