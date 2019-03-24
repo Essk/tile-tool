@@ -7,7 +7,9 @@
     </template>
     <template v-if="tileData.data.palettes.length > 0">
        <div class="ribbon">
-          <CPPalette v-for="palette in tileData.data.palettes" :key="palette.id" :palette="palette"/>
+         <router-link v-for="palette in tileData.data.palettes" :key="palette.id" :to="{ name: 'palette', params: { id: palette.id, tileData: tileData}  }"> 
+          <CPPalette  :palette="palette"/>
+          </router-link>
       </div>
     </template>
     <CPColorPicker/>
@@ -27,7 +29,5 @@ import CPColorPicker from '../components/ColorPicker.vue';
   },
   props: ['tileData'],
 })
-export default class Library extends Vue {
-
-}
+export default class Library extends Vue {}
 </script>

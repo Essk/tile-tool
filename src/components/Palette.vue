@@ -15,25 +15,27 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Palette } from '../utils/palette';
 import { Color } from '../utils/color';
-@Component
+@Component({})
 export default class CPPalette extends Vue {
   @Prop() private palette!: Palette;
   private hex(color: Color): string {
-    return `${Color.decToHex(color.red)}${Color.decToHex(color.green)}${Color.decToHex(color.blue)}`;
+    return `${Color.decToHex(color.red)}${Color.decToHex(
+      color.green,
+    )}${Color.decToHex(color.blue)}`;
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  .palette{
-    width: 256px;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(1fr, 16) ;
-    span{
-      display: block;
-      border: 1px dotted grey;
-    }
+.palette {
+  width: 256px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(1fr, 16);
+  span {
+    display: block;
+    border: 1px dotted grey;
   }
+}
 </style>

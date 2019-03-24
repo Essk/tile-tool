@@ -19,15 +19,21 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Tiles.vue'),
+      component: () =>
+        import(/* webpackChunkName: "about" */ './views/Tiles.vue'),
     },
     {
       path: '/palettes',
       name: 'palettes',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Palettes.vue'),
+      component: () =>
+        import(/* webpackChunkName: "palettes" */ './views/Palettes.vue'),
+    },
+    {
+      path: '/palette/:id',
+      name: 'palette',
+      component: () =>
+        import(/* webpackChunkName: "palette" */ './views/Palette.vue'),
+      props: true,
     },
   ],
 });
