@@ -5,8 +5,8 @@
       <span 
       v-for="(color, index) in palette.colors" 
       :key="index"
-      :style="{backgroundColor: `#${hex(color)}` }"
-      >{{ hex( color ) }}</span>
+      :style="{backgroundColor: color.hex }"
+      >{{ color.hex }}</span>
     </div>
   </div>
 </template>
@@ -17,12 +17,7 @@ import { Palette } from '../utils/palette';
 import { Color } from '../utils/color';
 @Component({})
 export default class CPPalette extends Vue {
-  @Prop() private palette!: Palette;
-  private hex(color: Color): string {
-    return `${Color.decToHex(color.red)}${Color.decToHex(
-      color.green,
-    )}${Color.decToHex(color.blue)}`;
-  }
+  @Prop() public palette!: Palette;
 }
 </script>
 

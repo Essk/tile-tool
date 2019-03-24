@@ -6,13 +6,14 @@
       :key="index">
         <button 
         class="palette__color-swatch"
-        :style="{backgroundColor: `#${hex(color)}` }"
+        :style="{backgroundColor: color.hex }"
         @mouseover="activate($event)"
         @focus="activate($event)"
         @mouseout="deactivate($event)"
         @blur="deactivate($event)"
         @click="select($event)"
-        >{{ color.hex }}</button>
+        >{{ color.hex }}
+        </button>
       </div>
     </div>
   </div>
@@ -23,9 +24,10 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Palette } from '../utils/palette';
 import { Color } from '../utils/color';
 import CPPalette from '@/components/Palette.vue';
-@Component({})
+@Component
 export default class CPPaletteEditable extends CPPalette {
   public selected: number | undefined = undefined;
+  @Prop() private tileData!: any;
   public activate($event: Event) {
     if ($event !== null && $event.target !== null) {
       const target = $event.target as HTMLElement;

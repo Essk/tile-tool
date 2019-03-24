@@ -1,13 +1,13 @@
 <template>
   <div class="library">
-    <template v-if="tileData.data.tiles.length > 0">
+    <template v-if="tileData.tiles.length > 0">
       <div class="ribbon">
-          <CPTile v-for="tile in tileData.data.tiles" :key="tile.id" :tile="tile"/>
+          <CPTile v-for="tile in tileData.tiles" :key="tile.id" :tile="tile"/>
       </div>
     </template>
-    <template v-if="tileData.data.palettes.length > 0">
+    <template v-if="tileData.palettes.length > 0">
        <div class="ribbon">
-         <router-link v-for="palette in tileData.data.palettes" :key="palette.id" :to="{ name: 'palette', params: { id: palette.id, tileData: tileData}  }"> 
+         <router-link v-for="palette in tileData.palettes" :key="palette.id" :to="{ name: 'palette', params: { id: palette.id, tileData: tileData}  }"> 
           <CPPalette  :palette="palette"/>
           </router-link>
       </div>
