@@ -12,7 +12,7 @@
         @mouseout="deactivate($event)"
         @blur="deactivate($event)"
         @click="select($event)"
-        >{{ hex( color ) }}</button>
+        >{{ color.hex }}</button>
       </div>
     </div>
   </div>
@@ -27,54 +27,65 @@ import CPPalette from '@/components/Palette.vue';
 export default class CPPaletteEditable extends CPPalette {
   public selected: number | undefined = undefined;
   public activate($event: Event) {
-    if ($event !== null && $event.target !== null ) {
+    if ($event !== null && $event.target !== null) {
       const target = $event.target as HTMLElement;
 
-      if (target.parentElement !== null
-      && getElementIndex(target) !== undefined
-      && getElementIndex(target) !== this.selected) {
-        target.parentElement.classList.add('palette__color-swatch-wrap--active');
+      if (
+        target.parentElement !== null &&
+        getElementIndex(target) !== undefined &&
+        getElementIndex(target) !== this.selected
+      ) {
+        target.parentElement.classList.add(
+          'palette__color-swatch-wrap--active',
+        );
       }
     }
   }
-  public deactivate($event: Event ) {
-        if ($event !== null && $event.target !== null ) {
+  public deactivate($event: Event) {
+    if ($event !== null && $event.target !== null) {
       const target = $event.target as HTMLElement;
       if (target.parentElement !== null) {
-        target.parentElement.classList.remove('palette__color-swatch-wrap--active');
+        target.parentElement.classList.remove(
+          'palette__color-swatch-wrap--active',
+        );
       }
     }
   }
-  public select($event: Event ) {
-    if ($event !== null && $event.target !== null ) {
+  public select($event: Event) {
+    if ($event !== null && $event.target !== null) {
       const target = $event.target as HTMLElement;
-      if (target.parentElement !== null
-      && target.parentElement.parentElement !== null
-      && target.parentElement.parentElement.children !== null
+      if (
+        target.parentElement !== null &&
+        target.parentElement.parentElement !== null &&
+        target.parentElement.parentElement.children !== null
       ) {
         const children = target.parentElement.parentElement.children;
         if (children !== null) {
-            /*tslint:disable:prefer-for-of */
-            for (let c = 0; c < children.length; c ++ ) {
-              children[c].classList.remove('palette__color-swatch-wrap--selected');
-            }
+          /*tslint:disable:prefer-for-of */
+          for (let c = 0; c < children.length; c++) {
+            children[c].classList.remove(
+              'palette__color-swatch-wrap--selected',
+            );
           }
-        target.parentElement.classList.add('palette__color-swatch-wrap--selected');
+        }
+        target.parentElement.classList.add(
+          'palette__color-swatch-wrap--selected',
+        );
         this.selected = getElementIndex(target.parentElement);
         this.$emit('selected', this.selected);
       }
     }
-
   }
 }
 
 function getElementIndex(element: HTMLElement): number | undefined {
-  if (element !== null
-      && element.parentElement !== null
-      && element.parentElement.children !== null
-      ) {
-        return Array.from(element.parentElement.children).indexOf(element);
-      }
+  if (
+    element !== null &&
+    element.parentElement !== null &&
+    element.parentElement.children !== null
+  ) {
+    return Array.from(element.parentElement.children).indexOf(element);
+  }
 }
 </script>
 
@@ -88,14 +99,14 @@ function getElementIndex(element: HTMLElement): number | undefined {
   &__color-swatch-wrap {
     padding: 2px 4px;
     background-color: white;
-    &--selected{
+    &--selected {
       background-color: red;
     }
-    &--active{
+    &--active {
       background-color: lightblue;
     }
   }
-  &__color-swatch{
+  &__color-swatch {
     -webkit-appearance: none;
     -moz-appearance: none;
     //border:2px solid grey;
