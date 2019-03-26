@@ -13,6 +13,10 @@ describe('Palette', () => {
     const palette = new Palette({name : 'a unique palette'});
     expect(palette.name).toBe('a unique palette');
   });
+  it('optionally accepts an id in opts', () => {
+    const palette = new Palette({ id: 'badger_snuff'});
+    expect(palette.id).toBe('badger_snuff');
+  });
   it('can accept a color array in options', () => {
      const black = new Color({red: 0, green: 0, blue: 0});
      const colors: Color[] = [

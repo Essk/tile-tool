@@ -1,6 +1,7 @@
 import { Color } from './color';
 import uniqid from 'uniqid';
 type Opts = {
+  id?: string;
   name?: string;
   colors?: Color[];
 };
@@ -12,7 +13,7 @@ export class Palette {
   private _len: number;
   constructor(opts: Opts) {
     this._name = opts.name || 'new palette';
-    this._id = this.makeId();
+    this._id = opts.id || this.makeId();
     this._len = 16;
     this._colors = opts.colors ? this.makeColors( this._len, opts.colors) :  this.makeColors(this._len);
   }

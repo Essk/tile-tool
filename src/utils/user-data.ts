@@ -7,7 +7,7 @@ type Opts = {
   defaults: object;
 };
 
-type Dict = { [key: string]: string };
+type Dict = { [key: string]: any };
 
 export class FileDataStore {
     public data: Dict;
@@ -18,6 +18,13 @@ export class FileDataStore {
         );
         this.path = path.join(userDataPath, opts.configName + '.json');
         this.data = parseDataFile(this.path, opts.defaults);
+        console.log(this.data);
+        // do a save in case this is first run
+        // can probably handle that circumstance
+        // more elegantly
+        Object.keys(this.data).forEach( (key) => {
+          this.set(key, this.data[key]);
+        });
     }
 
 
@@ -29,11 +36,13 @@ export class FileDataStore {
   // ...and this will set it
   public set(key: string, val: string): void {
     this.data[key] = val;
-    // Wait, I thought using the node.js' synchronous APIs was bad form?
-    // We're not writing a server so there's not nearly the same IO demand on the process
-    // Also if we used an async API and our app was quit before the asynchronous write had a chance to complete,
-    // we might lose that data. Note that in a real app, we would try/catch this.
-    fs.writeFileSync(this.path, JSON.stringify(this.data));
+    // Note that in a real app, we would try/catch this.
+    try {
+      fs.writeFileSync(this.path, JSON.stringify(this.data));
+    } catch (error) {
+      console.log('could not save to disk');
+      console.error(error);
+    }
   }
 }
 

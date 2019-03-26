@@ -1,5 +1,6 @@
 <template>
   <div class="palette-wrap">
+    {{ palette }}
     <h2>{{ palette.name }}</h2>
     <div class="palette">
       <span 
