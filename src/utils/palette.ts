@@ -1,7 +1,8 @@
 import { Color } from './color';
 import uniqid from 'uniqid';
 type Opts = {
-  name: string;
+  name?: string;
+  colors?: Color[];
 };
 
 export class Palette {
@@ -13,7 +14,7 @@ export class Palette {
     this._name = opts.name || 'new palette';
     this._id = this.makeId();
     this._len = 16;
-    this._colors = this.makeColors(this._len);
+    this._colors = opts.colors ? this.makeColors( this._len, opts.colors) :  this.makeColors(this._len);
   }
   get name(): string {
     return this._name;
@@ -32,10 +33,23 @@ export class Palette {
       this.colors.splice(idx, 1, color);
     }
   }
-  private makeColors(len: number) {
-    const colors = [];
-    for (let i = 0; i < len; i++) {
-      colors.push(new Color({ red: 255, green: 255, blue: 255 }));
+  private makeColors( len: number, optcolors?: Color[]) {
+    const colors = optcolors || [];
+    if (colors.length > len) {
+      // trim the extra off
+      const diff = colors.length - len;
+      return colors.splice(diff - 1, diff);
+    } else if ( colors.length >= 0 && colors.length <= len) {
+      // pad out with white
+      const padStart = colors.length;
+      for (let i = padStart; i < len; i++) {
+        colors.push(new Color({ red: 255, green: 255, blue: 255 }));
+      }
+    } else {
+      // return an array of white
+      for (let i = 0; i < len; i++) {
+        colors.push(new Color({ red: 255, green: 255, blue: 255 }));
+      }
     }
     return colors;
   }
