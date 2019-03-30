@@ -53,7 +53,7 @@ export class Tile extends FileEntity {
     }
     private makePx(len: number, px?: number[]): number[] {
         const _px = px || [];
-        if (_px.length > 0 && _px.length <= len) {
+        if (_px.length >= 0 && _px.length <= len) {
             for (let i = _px.length; i < len; i++) {
                 _px.push(0);
             }
