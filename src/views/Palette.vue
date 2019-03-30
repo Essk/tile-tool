@@ -1,6 +1,5 @@
 <template>
   <div class="palette-view">
-    {{ getPalette(id).colors[0] }}
     <CPPaletteEditable  :palette="getPalette(id)" @selected="handleSelect"/>
     <CPColorDetail :color="getPalette(id).colors[selected]"></CPColorDetail>
     <CPColorDetail :color="activeColor" ></CPColorDetail>

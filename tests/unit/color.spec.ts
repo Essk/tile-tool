@@ -16,9 +16,9 @@ describe('Color', () => {
     const green = new Color({red: 0, green: 201, blue: 0});
     expect(green).toHaveProperty('_green', 182);
   });
- it('shoud normalise blues to the 2bit Next scale', () => {
+ it('shoud normalise blues to the 3bit Next scale', () => {
     const blue = new Color({red: 0, green: 0, blue: 65});
-    expect(blue).toHaveProperty('_blue', 85);
+    expect(blue).toHaveProperty('_blue', 73);
   });
  it('provides an array of next values', () => {
     const colors = Color.nextColors();

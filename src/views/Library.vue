@@ -12,7 +12,6 @@
           </router-link>
       </div>
     </template>
-    <CPColorPicker/>
   </div>
 </template>
 
@@ -20,12 +19,10 @@
 import { Component, Vue } from 'vue-property-decorator';
 import CPTile from '../components/Tile.vue';
 import CPPalette from '../components/Palette.vue';
-import CPColorPicker from '../components/ColorPicker.vue';
 @Component({
   components: {
     CPTile,
     CPPalette,
-    CPColorPicker,
   },
   props: ['tileData'],
 })

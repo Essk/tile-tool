@@ -31,10 +31,14 @@ export class Color {
     private _green: number;
     private _blue: number;
     private _hex: string;
-    constructor(opts?: IColor) {
+    constructor(opts?: IColor | ColorFileData) {
         this.threeBitScale = [0, 36, 73, 109, 146, 182, 219, 255];
         this.twoBitScale = [0, 85, 170, 255];
-        if ( typeof opts !== 'undefined') {
+        if (typeof opts !== 'undefined' && this.isFromFile(opts)) {
+            this._red = opts._red;
+            this._green = opts._green;
+            this._blue = opts._blue;
+        } else if ( typeof opts !== 'undefined' && ! this.isFromFile(opts)) {
             this._red = this.normaliseThree(opts.red);
             this._green = this.normaliseThree(opts.green);
             this._blue = this.normaliseThree(opts.blue);
@@ -95,6 +99,9 @@ export class Color {
     get hex() {
         return this._hex;
     }
+    private isFromFile(opts: IColor | ColorFileData): opts is ColorFileData {
+        return (opts as ColorFileData)._red !== undefined;
+    }
 }
 
 export interface IColor {
@@ -102,6 +109,12 @@ export interface IColor {
     green: number;
     blue: number;
 }
+
+type ColorFileData = {
+    _red: number;
+    _green: number;
+    _blue: number;
+};
 
 /**
  * makes sure we have an integer 0 - 255

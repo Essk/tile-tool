@@ -1,13 +1,12 @@
 <template>
   <div class="palette-wrap">
-    {{ palette }}
     <h2>{{ palette.name }}</h2>
     <div class="palette">
       <span 
       v-for="(color, index) in palette.colors" 
       :key="index"
       :style="{backgroundColor: color.hex }"
-      >{{ color.hex }}</span>
+      ></span>
     </div>
   </div>
 </template>
@@ -25,13 +24,14 @@ export default class CPPalette extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .palette {
-  width: 256px;
+  width: 128px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(1fr, 16);
   span {
     display: block;
     border: 1px dotted grey;
+    height: 25px;
   }
 }
 </style>
