@@ -8,17 +8,21 @@ import { Palette } from './palette';
 export class TileDataController {
     private _tiles: Tile[];
     private _paletteSets: PaletteSet[];
-    private defaultPaletteSet = new PaletteSet({ name: 'new palette set', palettes: [ new Palette({}) ] });
-    private defaultTile = new Tile({ name: 'new tile', paletteSet: this.defaultPaletteSet.id });
-      private fileStore = new FileDataStore({
-      configName: 'user-data', defaults: {
-        tiles: [this.defaultTile],
-        paletteSets: [this.defaultPaletteSet],
-      },
-    });
+    private _defaultPaletteSet: PaletteSet;
+    private _defaultTile: Tile;
+    private _fileStore: FileDataStore;
+
     constructor() {
-        this._tiles = this.fileStore.data.tiles.map( (tile: TileFileData ) =>  Tile.hydrate(tile) );
-        this._paletteSets = this.fileStore.data.paletteSets.
+      this._defaultPaletteSet = new PaletteSet({ name: 'new palette set', palettes: [ new Palette({}) ] });
+      this._defaultTile = new Tile({ name: 'new tile', paletteSet: this._defaultPaletteSet.id });
+      this._fileStore = new FileDataStore({
+        configName: 'user-data', defaults: {
+          tiles: [this._defaultTile],
+          paletteSets: [this._defaultPaletteSet],
+        },
+      });
+      this._tiles = this._fileStore.data.tiles.map( (tile: TileFileData ) =>  Tile.hydrate(tile) );
+      this._paletteSets = this._fileStore.data.paletteSets.
         map( (paletteSet: PaletteSetFileData ) =>  PaletteSet.hydrate(paletteSet) );
     }
     get tiles() {
