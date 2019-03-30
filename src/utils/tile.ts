@@ -1,4 +1,5 @@
 import uniqid from 'uniqid';
+import { FileEntity } from './Storeable';
 
 type Opts = {
     name?: string;
@@ -14,7 +15,10 @@ type TileFileData = {
     _paletteSet: string;
     _currentPalette: any;
 };
-export class Tile {
+export class Tile extends FileEntity {
+    public static hydrate(tileFile: TileFileData) {
+        return new Tile(tileFile);
+    }
     private _name: string;
     private _id: string;
     private _px: number[];
@@ -22,6 +26,7 @@ export class Tile {
     private _paletteSet: string;
     private _currentPalette: number;
     constructor(opts: Opts | TileFileData) {
+        super();
         if (this.isFromFile(opts)) {
             this._name = opts._name;
             this._id = opts._id;

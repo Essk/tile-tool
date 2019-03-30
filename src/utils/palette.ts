@@ -1,4 +1,5 @@
-import { Color } from './color';
+import { Color, ColorFileData } from './color';
+import { FileEntity } from './Storeable';
 import uniqid from 'uniqid';
 type Opts = {
   id?: string;
@@ -6,16 +7,31 @@ type Opts = {
   colors?: Color[];
 };
 
-export class Palette {
+export type PaletteFileData = {
+  _id: string;
+  _name: string;
+  _colors: ColorFileData[];
+};
+export class Palette extends FileEntity {
+  public static hydrate(filePalette: PaletteFileData) {
+    return new Palette( filePalette );
+  }
   private _name: string;
   private _id: string;
   private _colors: Color[];
   private _len: number;
-  constructor(opts: Opts) {
-    this._name = opts.name || 'new palette';
-    this._id = opts.id || this.makeId();
+  constructor(opts: Opts | PaletteFileData) {
+    super();
     this._len = 16;
-    this._colors = opts.colors ? this.makeColors( this._len, opts.colors) :  this.makeColors(this._len);
+    if (this.isFromFile(opts)) {
+      this._name = opts._name;
+      this._id = opts._id;
+      this._colors = opts._colors.map( (color) => Color.hydrate(color) );
+    } else {
+      this._name = opts.name || 'new palette';
+      this._id = opts.id || this.makeId();
+      this._colors = opts.colors ? this.makeColors( this._len, opts.colors) :  this.makeColors(this._len);
+    }
   }
   get name(): string {
     return this._name;
@@ -60,4 +76,8 @@ export class Palette {
   private validIdx(idx: number): boolean {
     return Number.isInteger(idx) && idx >= 0 && idx < this._len;
   }
+  private isFromFile(opts: Opts | PaletteFileData): opts is PaletteFileData {
+    return (opts as PaletteFileData)._id !== undefined;
+  }
 }
+

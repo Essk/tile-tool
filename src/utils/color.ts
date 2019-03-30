@@ -1,5 +1,7 @@
 /* tslint:disable: no-bitwise */
-export class Color {
+
+import { FileEntity } from './Storeable';
+export class Color extends FileEntity {
     public static asHex(color: IColor ): string {
         return  `#${Color.decToHex(color.red)}${Color.decToHex(color.green)}${Color.decToHex(color.blue)}`;
     }
@@ -25,6 +27,9 @@ export class Color {
         }
         return colors;
     }
+    public static hydrate(fileColor: ColorFileData) {
+        return new Color( fileColor );
+    }
     public readonly twoBitScale: number [];
     public readonly threeBitScale: number [];
     private _red: number;
@@ -32,6 +37,7 @@ export class Color {
     private _blue: number;
     private _hex: string;
     constructor(opts?: IColor | ColorFileData) {
+        super();
         this.threeBitScale = [0, 36, 73, 109, 146, 182, 219, 255];
         this.twoBitScale = [0, 85, 170, 255];
         if (typeof opts !== 'undefined' && this.isFromFile(opts)) {
@@ -87,6 +93,9 @@ export class Color {
             return values[i + 1];
         }
     }
+    private isFromFile(opts: IColor | ColorFileData): opts is ColorFileData {
+        return (opts as ColorFileData)._red !== undefined;
+    }
     get red() {
         return this._red;
     }
@@ -99,9 +108,7 @@ export class Color {
     get hex() {
         return this._hex;
     }
-    private isFromFile(opts: IColor | ColorFileData): opts is ColorFileData {
-        return (opts as ColorFileData)._red !== undefined;
-    }
+
 }
 
 export interface IColor {
@@ -110,7 +117,7 @@ export interface IColor {
     blue: number;
 }
 
-type ColorFileData = {
+export type ColorFileData = {
     _red: number;
     _green: number;
     _blue: number;
