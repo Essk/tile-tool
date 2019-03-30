@@ -5,10 +5,13 @@
           <CPTile v-for="tile in tileData.tiles" :key="tile.id" :tile="tile"/>
       </div>
     </template>
-    <template v-if="tileData.palettes.length > 0">
+    <template v-if="tileData.paletteSets.length > 0">
        <div class="ribbon">
-         <router-link v-for="palette in tileData.palettes" :key="palette.id" :to="{ name: 'palette', params: { id: palette.id, tileData: tileData}  }"> 
-          <CPPalette  :palette="palette"/>
+         <router-link v-for="paletteSet in tileData.paletteSets" 
+         :key="paletteSet.id" :to="{ name: 'paletteSet', params: { id: paletteSet.id, tileData: tileData}  }"> 
+          {{ paletteSet.name }}
+          <br>
+          {{ paletteSet.id }}
           </router-link>
       </div>
     </template>
