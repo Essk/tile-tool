@@ -47,6 +47,7 @@ describe('Tile', () => {
   it('has a pixel array of the correct length of 0s', () => {
     const tile = new Tile({name: ''});
     expect(tile.px).toMatchSnapshot();
+    expect(tile.px.length).toBe(64);
   });
   it('updates valid pixel data', () => {
     const tile = new Tile({name: ''});
