@@ -10,7 +10,7 @@ type Opts = {
 export type PaletteSetFileData = {
   _id: string;
   _name: string;
-  _pallets: PaletteFileData[];
+  _palettes: PaletteFileData[];
 };
 export class PaletteSet extends FileEntity {
   public static hydrate(filePaletteSet: PaletteSetFileData) {
@@ -26,7 +26,7 @@ export class PaletteSet extends FileEntity {
     if (this.isFromFile(opts)) {
       this._name = opts._name;
       this._id = opts._id;
-      this._palettes = opts._pallets.map( (palette) => Palette.hydrate(palette) );
+      this._palettes = opts._palettes.map( (palette) => Palette.hydrate(palette) );
     } else {
       this._name = opts.name || 'new palette';
       this._id = opts.id || this.makeId();

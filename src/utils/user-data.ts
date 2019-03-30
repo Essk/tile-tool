@@ -18,7 +18,6 @@ export class FileDataStore {
         );
         this.path = path.join(userDataPath, opts.configName + '.json');
         this.data = parseDataFile(this.path, opts.defaults);
-        console.log(this.data);
         // do a save in case this is first run
         // can probably handle that circumstance
         // more elegantly

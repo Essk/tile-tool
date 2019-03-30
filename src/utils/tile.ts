@@ -8,7 +8,7 @@ type Opts = {
     paletteSet?: string;
     currentPalette?: any;
 };
-type TileFileData = {
+export type TileFileData = {
     _name: string;
     _id: string;
     _px: number[];
