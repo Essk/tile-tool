@@ -36,6 +36,9 @@ export class Palette extends FileEntity {
   get name(): string {
     return this._name;
   }
+  set name(newName: string) {
+    this._name = newName;
+  }
   get id(): string {
     return this._id;
   }

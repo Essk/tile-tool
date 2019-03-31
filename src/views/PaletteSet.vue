@@ -3,6 +3,7 @@
   <h1><span>PaletteSet:</span><br>
   <span>{{ paletteSet.name }}</span></h1>
   <span> {{ paletteSet.palettes.length }} of 16 palettes defined</span>
+  <button @click="prepareNewPalette({ps: paletteSet.id, palette:null})">+ Add palette</button>
   <div class=" grid-display palette-set-view">
     <template v-for="palette in paletteSet.palettes">
       <CPCompactPalette  :key="palette.id" 
@@ -27,6 +28,7 @@ export default class VWPaletteSet extends Vue {
   @Prop() private id!: string;
   @Prop() private tileData!: any;
   @Prop() private getPaletteSet!: any;
+  @Prop() private prepareNewPalette!: any;
   private paletteSet = this.getPaletteSet(this.id);
 }
 </script>
