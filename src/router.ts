@@ -29,10 +29,23 @@ export default new Router({
         import(/* webpackChunkName: "palettes" */ './views/Palettes.vue'),
     },
     {
+      path: '/paletteSets',
+      name: 'paletteSets',
+      component: () =>
+        import(/* webpackChunkName: "paletteSets" */ './views/PaletteSets.vue'),
+    },
+    {
       path: '/palette/:id',
       name: 'palette',
       component: () =>
         import(/* webpackChunkName: "palette" */ './views/Palette.vue'),
+      props: true,
+    },
+    {
+      path: '/paletteSet/:id',
+      name: 'paletteSet',
+      component: () =>
+        import(/* webpackChunkName: "paletteSet" */ './views/PaletteSet.vue'),
       props: true,
     },
   ],
