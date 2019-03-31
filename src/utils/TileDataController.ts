@@ -1,7 +1,6 @@
 import { FileDataStore } from './user-data';
 import { Tile, TileFileData } from '@/utils/tile';
 import { PaletteSet, PaletteSetFileData } from '@/utils/paletteSet';
-import { Color } from '@/utils/color';
 import { Palette } from './palette';
 
 
