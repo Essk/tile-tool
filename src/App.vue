@@ -78,6 +78,7 @@ export default class App extends Vue {
   public addNewPalette() {
     if (this.curPS !== undefined) {
       this.curPS.palettes.push(this.newPalette);
+      this.tileDataController.paletteSets = this.tileData.paletteSets;
     }
     this.closeModal();
   }

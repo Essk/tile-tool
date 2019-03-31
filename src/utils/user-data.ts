@@ -1,3 +1,5 @@
+import { type } from 'os';
+
 const electron = require('electron');
 const path = require('path');
 const fs = require('fs');
@@ -18,6 +20,7 @@ export class FileDataStore {
         );
         this.path = path.join(userDataPath, opts.configName + '.json');
         this.data = parseDataFile(this.path, opts.defaults);
+        console.log(this.data);
         // do a save in case this is first run
         // can probably handle that circumstance
         // more elegantly
@@ -33,7 +36,7 @@ export class FileDataStore {
   }
 
   // ...and this will set it
-  public set(key: string, val: string): void {
+  public set(key: string, val: any): void {
     this.data[key] = val;
     // Note that in a real app, we would try/catch this.
     try {

@@ -30,4 +30,8 @@ export class TileDataController {
     get paletteSets() {
         return this._paletteSets;
     }
+    set paletteSets(sets) {
+      this._paletteSets = sets;
+      this._fileStore.set('paletteSets', this._paletteSets);
+    }
 }
