@@ -2,7 +2,7 @@
   <div class="compact-palette-wrap">
         <h2> {{ palette.name}} </h2>
         <span> {{ palette.id }}</span>
-      <router-link :key="palette.id" :to="{ name: 'palette', params: { id: palette.id, tileData: tileData}  }">
+      <router-link :key="palette.id" :to="{ name: 'palette', params: { id: palette.id}  }">
         Edit
       </router-link>
       <div class="palette">
@@ -20,7 +20,6 @@ import { Color } from '../utils/color';
 export default class CPCompactPalette extends Vue {
   @Prop() public palette!: Palette;
   @Prop() public paletteSetTotal!: number;
-  @Prop() public tileData!: any;
 }
 </script>
 
