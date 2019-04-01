@@ -75,6 +75,12 @@ describe('PaletteSet', () => {
     expect(paletteSet.palettes).toEqual(singlePalette);
 
   });
+  it('can update its name', () => {
+    const name = 'a shiny new name';
+    const paletteSet = new PaletteSet({});
+    paletteSet.name = name;
+    expect(paletteSet.name).toBe(name);
+  });
   /*
   it('updates valid index', () => {
 

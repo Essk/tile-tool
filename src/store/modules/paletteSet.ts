@@ -14,7 +14,8 @@ export const state: State = {
 
 export const getters: PSGetter = {
     paletteSets: (state) => state.paletteSets,
-    paletteSet: (state) => (id: string) => state.paletteSets.find( (ps) => ps.id === id ),
+    paletteSetById: (state) => (id: string) => state.paletteSets.find( (ps) => ps.id === id ),
+    paletteSetIndexById: (state) => (id: string) => state.paletteSets.findIndex( (ps) => ps.id === id ),
   };
 
 export const mutations: MutationTree<State>  = {
@@ -29,6 +30,9 @@ export const mutations: MutationTree<State>  = {
     },
     setByIndex(state, {idx, paletteSet}) {
         state.paletteSets.splice(idx, 1, paletteSet);
+    },
+    setName(state, {idx, name}) {
+        state.paletteSets[idx].name = name;
     },
 };
 
@@ -47,6 +51,12 @@ export const actions: ActionTree<State, any> = {
         commit('setByIndex', {idx: replaceIdx, paletteSet: state.paletteSet});
         rootState.fileStore.set('paletteSets', state.paletteSets);
     },
+    setName({commit, getters, rootState, state}, {id, name}) {
+        const idx = getters.paletteSetIndexById(id);
+        commit('setName', {idx, name});
+        // this should be an Action in rootState
+        rootState.fileStore.set('paletteSets', state.paletteSets);
+    },
 };
 
 
@@ -56,4 +66,5 @@ interface State  {
     paletteSets: PaletteSet[];
     defaultPaletteSet: PaletteSet;
     paletteSet: PaletteSet;
+
 }
