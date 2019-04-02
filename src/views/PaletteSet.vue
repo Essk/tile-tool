@@ -1,7 +1,12 @@
 <template>
 <div>
-  <CPEditableTitle lineOne="PaletteSet:" :lineTwo="paletteSetbyId(id).name" @input="handlePSName" />
-  <span> {{ paletteSetbyId(id).palettes.length }} of 16 palettes defined</span>
+  
+  <CPEditableTitle lineOne="PaletteSet:" 
+  :lineTwo="paletteSetbyId(id).name" 
+  :lineThree="`${paletteSetbyId(id).palettes.length} of 16 palettes defined`"
+  @input="handlePSName" />
+  
+
   <button @click="addPalette( makeNewPalette() )">+ Add palette</button>
   <div class=" grid-display palette-set-view">
     <template v-for="palette in paletteSetbyId(id).palettes">
