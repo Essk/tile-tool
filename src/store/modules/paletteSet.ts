@@ -1,4 +1,5 @@
 /* tslint:disable: no-shadowed-variable */
+import debounce from 'lodash/debounce';
 import { PaletteSet, PaletteSetFileData } from '@/utils/paletteSet';
 import { Palette } from '@/utils/palette';
 
@@ -55,7 +56,7 @@ export const actions: ActionTree<State, any> = {
         const idx = getters.paletteSetIndexById(id);
         commit('setName', {idx, name});
         // this should be an Action in rootState
-        rootState.fileStore.set('paletteSets', state.paletteSets);
+        saveAllPSToTemp(rootState, state);
     },
 };
 
@@ -68,3 +69,7 @@ interface State  {
     paletteSet: PaletteSet;
 
 }
+
+const saveAllPSToTemp = debounce( (rs, state) => {
+    rs.fileStore.set('paletteSets', state.paletteSets);
+}, 100 );
