@@ -4,6 +4,7 @@ import router from './router';
 import store from './store/store';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
+import '@/assets/css/tailwind.css';
 
 
 const requireComponent = require.context(
