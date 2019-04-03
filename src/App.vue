@@ -4,10 +4,13 @@
       <router-link to="/">Library</router-link> |
       <router-link to="/tiles">Tiles</router-link> | 
       <router-link to="/palettes">Palettes</router-link> | 
-      
     </div>
+    <button @click="showModal">clicky</button>
     <router-view />
 
+    <dialog :open="$store.state.modalOpen">
+      <component v-if="$store.state.modalComponent !== ''" :is="$store.state.modalComponent" ></component>
+    </dialog>
   </div>
 </template>
 
@@ -29,19 +32,11 @@ export default class App extends Vue {
   public created() {
     this.init();
   }
+  public showModal() {
+    this.$store.dispatch('setModalState', true);
+    this.$store.dispatch('setModalComponent', 'TitleDialog');
+  }
 }
-/*
-    <dialog :open="showModal">
-      <div class="modal-content">
-        <h1> New Palette Name: </h1>
-        <input type="text" value="New Palette" ref="paletteName" v-model="newPalette.name">
-        <div class="modal-actions">
-          <button @click="addNewPalette">Save changes</button>
-          <button @click="closeModal">Cancel and close</button>
-        </div>
-      </div>
-    </dialog>
-*/
 </script>
 <style lang="scss">
 html {
@@ -49,8 +44,8 @@ html {
 }
 dialog {
   position: absolute;
-  top:50%;
-  transform: translateY(-50%);
+  top:0;
+  left: 0;
   width: 100vw;
   height: 100vh;
 }
