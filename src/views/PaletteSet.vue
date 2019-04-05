@@ -1,6 +1,5 @@
 <template>
-<div>
-  
+<div class="view-content p-8">
   <CPEditableTitle lineOne="PaletteSet:" 
   :lineTwo="paletteSetbyId(id).name" 
   :lineThree="`${paletteSetbyId(id).palettes.length} of 16 palettes defined`"
@@ -8,9 +7,9 @@
   
 
   <button @click="addPalette( makeNewPalette() )">+ Add palette</button>
-  <div class=" grid-display palette-set-view">
+  <div class=" grid-display palette-set-view w-full -mx-4 my-4">
     <template v-for="palette in paletteSetbyId(id).palettes">
-      <CPCompactPalette  :key="palette.id" 
+      <CPCompactPalette  :key="palette.id"  class="my-0 mx-auto p-4  bg-grey-lightest"
       :palette="palette" 
       :paletteSetTotal="paletteSetbyId(id).palettes.length"
       />
@@ -52,5 +51,10 @@ export default class VWPaletteSet extends Vue {
 </script>
 
 <style lang="scss" scoped>
-
+ .grid-display{
+   display: grid;
+   grid-gap:1em;
+   grid-template-columns: 1fr 1fr 1fr 1fr;
+   grid-template-rows: auto;
+ }
 </style>

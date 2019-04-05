@@ -11,7 +11,7 @@
       <span class="text-white px-2">menu_3</span>
     </div>
     
-    <router-view />
+    <router-view class=" content"/>
 
     <dialog :open="$store.state.modalOpen">
       <component v-if="$store.state.modalComponent !== ''" :is="$store.state.modalComponent" ></component>
@@ -68,7 +68,7 @@ dialog {
 #menu {
   grid-area: header
 }
-router-view{
+.content{
   grid-area: content;
 }
 </style>
