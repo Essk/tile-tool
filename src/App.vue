@@ -1,11 +1,16 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Library</router-link> |
-      <router-link to="/tiles">Tiles</router-link> | 
-      <router-link to="/palettes">Palettes</router-link> | 
+  <div id="app" class="">
+    <div id="nav" class="flex flex-col p-4 bg-pink-darkest h-screen">
+      <router-link class="px-2 py-4 text-white uppercase no-underline font-bold" to="/">Library</router-link>
+      <router-link class="px-2 py-4 text-white uppercase no-underline " to="/tiles">Tiles</router-link>
+      <router-link class="px-2 py-4 text-white uppercase no-underline " to="/palettes">Palettes</router-link>
     </div>
-    <BaseButton @click="showModal" variant="primary">clicky</BaseButton>
+    <div id="menu" class="flex w-full self-start bg-grey-darkest p-4">
+      <span class="text-white px-2">menu_1</span>
+      <span class="text-white px-2">menu_2</span>
+      <span class="text-white px-2">menu_3</span>
+    </div>
+    
     <router-view />
 
     <dialog :open="$store.state.modalOpen">
@@ -48,5 +53,22 @@ dialog {
   left: 0;
   width: 100vw;
   height: 100vh;
+}
+#app{
+  display: grid;
+  grid-template-columns: 120px 1fr 1fr;
+  grid-template-areas:
+    "sidebar header header"
+    "sidebar content content"
+    "sidebar  footer  footer";
+}
+#nav {
+  grid-area: sidebar
+}
+#menu {
+  grid-area: header
+}
+router-view{
+  grid-area: content;
 }
 </style>
