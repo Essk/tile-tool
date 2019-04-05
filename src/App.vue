@@ -5,7 +5,7 @@
       <router-link to="/tiles">Tiles</router-link> | 
       <router-link to="/palettes">Palettes</router-link> | 
     </div>
-    <button @click="showModal">clicky</button>
+    <BaseButton @click="showModal" variant="primary">clicky</BaseButton>
     <router-view />
 
     <dialog :open="$store.state.modalOpen">
