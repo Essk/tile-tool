@@ -2,12 +2,19 @@
   <div class="compact-palette-wrap">
         <h2> {{ palette.name}} </h2>
         <span> {{ palette.id }}</span>
-      <router-link :key="palette.id" :to="{ name: 'palette', params: { id: palette.id}  }">
-        Edit
-      </router-link>
-      <div class="palette">
+     
+
+      <div class="palette mt-2">
         <span v-for="(color, index) in palette.colors" :key="index">
         </span>
+      </div>
+      <div class="buttons py-2 -mx-2 -mb-2 flex " >
+      <router-link :key="palette.id" :to="{ name: 'palette', params: { id: palette.id}  }" 
+      class=" flex-1 text-xs text-center m-2 p-2 border border-blue text-blue-dark uppercase no-underline">
+        Edit
+      </router-link>
+      <button class=" flex-1 text-xs text-center m-2 p-2 border border-blue text-blue-dark uppercase no-underline">Copy</button>
+      <button class=" flex-1  text-xs text-center m-2 p-2 border border-blue text-blue-dark uppercase no-underline">Delete</button>
       </div>
   </div>
 </template>
@@ -26,7 +33,6 @@ export default class CPCompactPalette extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .palette {
-  width: 128px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -35,8 +41,8 @@ export default class CPCompactPalette extends Vue {
   span {
     display: block;
     border: 1px dotted grey;
-    height: 32px;
-    width: 32px;
+    height: 64px;
+    width: 64px;
     border-radius: 16px;
   }
 }
