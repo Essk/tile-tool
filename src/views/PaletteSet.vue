@@ -12,6 +12,8 @@
       <CPCompactPalette  :key="palette.id"  class="my-0 mx-auto p-4  bg-grey-lightest"
       :palette="palette" 
       :paletteSetTotal="paletteSetbyId(id).palettes.length"
+      @duplicate="prepareCopyPalette"
+      @delete="prepareDeletePalette"
       />
     </template>
     <button v-if="paletteSetbyId(id).palettes.length < 16" @click="prepareNewPalette"
@@ -38,6 +40,7 @@ import CPEditableTitle from '@/components/EditableTitle.vue';
 export default class VWPaletteSet extends Vue {
   @Action('setCurrent', { namespace: 'paletteSet' }) public setCurrent!: any;
   @Action('addPalette', { namespace: 'paletteSet' }) public addPalette!: any;
+  @Action('removePalette', { namespace: 'paletteSet' }) public removePalette!: any;
   @Action('setName', { namespace: 'paletteSet' }) public setName!: any;
   @Prop() private id!: string;
   @Getter('paletteSetById', { namespace: 'paletteSet' }) private paletteSetbyId!: (id: string) => PaletteSet;
@@ -48,6 +51,21 @@ export default class VWPaletteSet extends Vue {
   private handlePSName(name: string) {
     this.setName({id: this.id, name});
   }
+  private prepareCopyPalette(paletteToCopy: Palette) {
+    this.$store.dispatch('setModalState', true);
+    this.$store.dispatch('setModalComponent', 'TitleDialog');
+    this.$store.dispatch('setModalProps', {
+      confirm: (name: string) => {
+        const palette = Palette.duplicate(paletteToCopy);
+        palette.name = name;
+        this.addPalette(palette);
+        this.$store.dispatch('setModalState', false);
+      },
+      cancel: () => {
+        this.$store.dispatch('setModalState', false);
+      },
+    });
+  }
   private prepareNewPalette() {
     this.$store.dispatch('setModalState', true);
     this.$store.dispatch('setModalComponent', 'TitleDialog');
@@ -57,10 +75,25 @@ export default class VWPaletteSet extends Vue {
         this.addPalette(palette);
         this.$store.dispatch('setModalState', false);
       },
-      cancel: () => { console.log(this, 'cancel');
-                      this.$store.dispatch('setModalState', false);
+      cancel: () => {
+        this.$store.dispatch('setModalState', false);
       },
     });
+  }
+  private prepareDeletePalette(paletteToRemove: Palette) {
+    this.$store.dispatch('setModalState', true);
+    this.$store.dispatch('setModalComponent', 'RemovePaletteDialog');
+    this.$store.dispatch('setModalProps', {
+      confirm: () => {
+        this.removePalette(paletteToRemove);
+        this.$store.dispatch('setModalState', false);
+      },
+      cancel: () => {
+        this.$store.dispatch('setModalState', false);
+      },
+      paletteToRemove,
+    });
+
   }
 }
 </script>
