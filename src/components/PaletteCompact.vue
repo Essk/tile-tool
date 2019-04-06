@@ -8,15 +8,17 @@
       </div>
       <div class="buttons py-2 -mx-2 -mb-2 flex " >
       <router-link :key="palette.id" :to="{ name: 'palette', params: { id: palette.id}  }" 
-      class=" flex-1 text-xs text-center m-2 p-2 border border-blue text-blue-dark uppercase no-underline">
+      class="flex-1 m-1 btn btn-primary btn-sm ">
         Edit
       </router-link>
-      <button 
+      <BaseButton
         @click="$emit('duplicate', palette)"
-        class=" flex-1 text-xs text-center m-2 p-2 border border-blue text-blue-dark uppercase no-underline">Copy</button>
-      <button 
+        class=" flex-1 m-1  btn btn-sm btn-primary">Copy
+        </BaseButton>
+      <BaseButton 
       @click="$emit('delete', palette)"
-      class=" flex-1  text-xs text-center m-2 p-2 border border-blue text-blue-dark uppercase no-underline">Delete</button>
+      class=" flex-1 m-1 btn btn-sm btn-danger">Delete
+      </BaseButton>
       </div>
   </div>
 </template>

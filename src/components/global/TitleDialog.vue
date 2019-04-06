@@ -4,8 +4,8 @@
         <h1 class="text-3xl"> New Palette Name: </h1>
         <input type="text" v-model="editable" ref="paletteName" class="my-4 text-2xl border-b border-grey-dark w-full pb-1" >
         <div class="modal-actions flex justify-end w-full mt-2 -mb-2">
-          <BaseButton variant="positive" class="mx-4" @click="doConfirm">Confirm changes</BaseButton>
-          <BaseButton variant="danger" @click="modalProps.cancel">Cancel and close</BaseButton>
+          <BaseButton class="mx-4  btn btn-md btn-positive" @click="doConfirm">Confirm changes</BaseButton>
+          <BaseButton class=" btn btn-md btn-danger" @click="modalProps.cancel">Cancel and close</BaseButton>
         </div>
       </div>
     </div>

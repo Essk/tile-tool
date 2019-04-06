@@ -6,8 +6,8 @@
           {{ modalProps.paletteToRemove.name }}
         </span> from this palette set?</h1>
         <div class="modal-actions flex justify-end w-full mt-2 -mb-2">
-          <BaseButton variant="danger" class="mx-4" @click="doConfirm">Yes delete</BaseButton>
-          <BaseButton variant="primary" @click="modalProps.cancel">Cancel and close</BaseButton>
+          <BaseButton class="mx-4 btn btn-md btn-primary" @click="doConfirm">Yes delete</BaseButton>
+          <BaseButton class="btn btn-md btn-danger" @click="modalProps.cancel">Cancel and close</BaseButton>
         </div>
       </div>
     </div>

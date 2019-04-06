@@ -1,3 +1,35 @@
 @tailwind preflight;
+
+.btn {
+    @apply text-center bg-transparent border rounded no-underline;
+  }
+  .btn:hover {
+    @apply text-white border-transparent;
+  }
+.btn-sm {
+    @apply text-xs p-2;
+}
+.btn-md {
+    @apply font-semibold  py-2 px-4;
+}
+.btn-primary {
+    @apply text-blue-dark border-blue;
+}
+.btn-primary:hover{
+    @apply bg-blue
+}
+.btn-danger {
+    @apply text-red-dark border-red;
+}
+.btn-danger:hover {
+    @apply bg-red;
+}
+.btn-positive {
+    @apply text-green-darker border-green-dark 
+}
+.btn-positive:hover {
+    @apply bg-green-dark;
+}
+
 @tailwind components;
 @tailwind utilities;
