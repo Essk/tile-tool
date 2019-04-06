@@ -94,5 +94,12 @@ describe('Palette', () => {
     palette.updateColor(23, new Color({red: 0, green: 0, blue: 0}));
     expect(palette.colors).toMatchSnapshot();
   });
+  it('can be duplicated', () => {
+    const origPalette = new Palette({name: 'Original Palette'});
+    const copyPalette = Palette.duplicate(origPalette);
+    expect(copyPalette.name).toBe(origPalette.name);
+    expect(copyPalette.id).toBeTruthy();
+    expect(copyPalette.id).toEqual(expect.not.stringMatching(origPalette.id));
+  });
 });
 

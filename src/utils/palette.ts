@@ -16,6 +16,11 @@ export class Palette extends FileEntity {
   public static hydrate(filePalette: PaletteFileData) {
     return new Palette( filePalette );
   }
+  public static duplicate(paletteToCopy: Palette): Palette {
+    const newPalette = new Palette(paletteToCopy);
+    newPalette._id = makeId();
+    return newPalette;
+  }
   private _name: string;
   private _id: string;
   private _colors: Color[];
@@ -29,7 +34,7 @@ export class Palette extends FileEntity {
       this._colors = opts._colors.map( (color) => Color.hydrate(color) );
     } else {
       this._name = opts.name || 'new palette';
-      this._id = opts.id || this.makeId();
+      this._id = opts.id || makeId();
       this._colors = opts.colors ? this.makeColors( this._len, opts.colors) :  this.makeColors(this._len);
     }
   }
@@ -73,9 +78,6 @@ export class Palette extends FileEntity {
     }
     return colors;
   }
-  private makeId(): string {
-    return uniqid('palette-');
-  }
   private validIdx(idx: number): boolean {
     return Number.isInteger(idx) && idx >= 0 && idx < this._len;
   }
@@ -84,3 +86,6 @@ export class Palette extends FileEntity {
   }
 }
 
+function makeId(): string {
+  return uniqid('palette-');
+}
