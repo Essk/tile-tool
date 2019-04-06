@@ -6,7 +6,7 @@
   @input="handlePSName" />
   
 
-  <button @click="addPalette( makeNewPalette() )">+ Add palette</button>
+  
   <div class=" grid-display palette-set-view w-full -mx-4 my-4">
     <template v-for="palette in paletteSetbyId(id).palettes">
       <CPCompactPalette  :key="palette.id"  class="my-0 mx-auto p-4  bg-grey-lightest"
@@ -14,6 +14,9 @@
       :paletteSetTotal="paletteSetbyId(id).palettes.length"
       />
     </template>
+    <button v-if="paletteSetbyId(id).palettes.length < 16" @click="prepareNewPalette"
+    class="border-grey border-dashed border-4 "
+    >+ Add palette</button>
   </div>
 
 </div>
@@ -41,11 +44,23 @@ export default class VWPaletteSet extends Vue {
   public created() {
     this.setCurrent(this.paletteSetbyId(this.id));
   }
-  private makeNewPalette(): Palette {
-    return new Palette({});
-  }
+
   private handlePSName(name: string) {
     this.setName({id: this.id, name});
+  }
+  private prepareNewPalette() {
+    this.$store.dispatch('setModalState', true);
+    this.$store.dispatch('setModalComponent', 'TitleDialog');
+    this.$store.dispatch('setModalProps', {
+      confirm: (name: string) => {
+        const palette = new Palette({name});
+        this.addPalette(palette);
+        this.$store.dispatch('setModalState', false);
+      },
+      cancel: () => { console.log(this, 'cancel');
+                      this.$store.dispatch('setModalState', false);
+      },
+    });
   }
 }
 </script>

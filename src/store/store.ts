@@ -17,6 +17,7 @@ export default new Vuex.Store({
     }),
     modalOpen: false,
     modalComponent : '',
+    modalProps : {},
 
     /** move to tile module */
    // tiles: fileStore.data.tiles.map( (tile: TileFileData ) =>  Tile.hydrate(tile) )
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     setModalComponent(state, component) {
       state.modalComponent = component;
     },
+    setModalProps(state, modalProps) {
+      state.modalProps = modalProps;
+    },
   },
   actions: {
     setModalState({commit}, modalOpen) {
@@ -35,6 +39,9 @@ export default new Vuex.Store({
     },
     setModalComponent({commit}, component) {
       commit('setModalComponent', component);
+    },
+    setModalProps({commit}, ModalProps) {
+      commit('setModalProps', ModalProps);
     },
   },
   modules : {
@@ -46,4 +53,5 @@ export type State = {
   filestore: FileDataStore;
   modalOpen: boolean;
   modalComponent: string;
+  modalProps: any;
 };

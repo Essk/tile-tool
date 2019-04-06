@@ -15,8 +15,19 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component({})
     export default class TitleDialog extends Vue  {
-
+      @Prop() private modalProps!: TitleDialogProps;
+      private editable = 'New Palette';
+      private doConfirm() {
+        this.modalProps.confirm(this.editable);
+      }
+      private doCancel() {
+        this.modalProps.cancel();
+      }
     }
+type TitleDialogProps = {
+      confirm( name: string): void,
+      cancel(): void,
+    };
 </script>
 
 <style scoped>
