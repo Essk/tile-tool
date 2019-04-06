@@ -4,17 +4,28 @@
   :lineTwo="paletteSetbyId(id).name" 
   :lineThree="`${paletteSetbyId(id).palettes.length} of 16 palettes defined`"
   @input="handlePSName" />
-  
-
-  
   <div class=" grid-display palette-set-view w-full -mx-4 my-4">
-    <template v-for="palette in paletteSetbyId(id).palettes">
+    <template v-for="(palette, p_index) in paletteSetbyId(id).palettes">
       <CPCompactPalette  :key="palette.id"  class="my-0 mx-auto p-4  bg-grey-lightest"
       :palette="palette" 
-      :paletteSetTotal="paletteSetbyId(id).palettes.length"
-      @duplicate="prepareCopyPalette"
-      @delete="prepareDeletePalette"
-      />
+      :index="p_index"
+      >
+        <div class="buttons py-2 -mx-2 -mb-2 flex " >
+          <router-link :key="palette.id" :to="{ name: 'palette', params: { index: p_index}  }" 
+          class="flex-1 m-1 btn btn-primary btn-sm ">
+            Edit
+          </router-link>
+          <BaseButton
+            :disabled="paletteSetbyId(id).palettes.length >= 16"
+            @click="prepareCopyPalette(palette)"
+            class=" flex-1 m-1  btn btn-sm btn-primary">Copy
+            </BaseButton>
+          <BaseButton 
+          @click="prepareDeletePalette(palette)"
+          class=" flex-1 m-1 btn btn-sm btn-danger">Delete
+          </BaseButton>
+        </div>
+      </CPCompactPalette>
     </template>
     <button v-if="paletteSetbyId(id).palettes.length < 16" @click="prepareNewPalette"
     class="border-grey border-dashed border-4 "
@@ -30,7 +41,7 @@ import { Palette } from '../utils/palette';
 import { PaletteSet } from '../utils/paletteSet';
 import CPCompactPalette from '@/components/PaletteCompact.vue';
 import CPEditableTitle from '@/components/EditableTitle.vue';
-const paletteSets = namespace('@/store.PaletteSets');
+const paletteSets = namespace('@/store/PaletteSets');
 
 @Component({
   components: {

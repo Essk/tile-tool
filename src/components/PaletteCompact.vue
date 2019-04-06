@@ -3,23 +3,10 @@
         <h2> {{ palette.name}} </h2>
         <span> {{ palette.id }}</span>
       <div class="palette mt-2">
-        <span v-for="(color, index) in palette.colors" :key="index">
+        <span v-for="(color, c_index) in palette.colors" :key="c_index">
         </span>
       </div>
-      <div class="buttons py-2 -mx-2 -mb-2 flex " >
-      <router-link :key="palette.id" :to="{ name: 'palette', params: { id: palette.id}  }" 
-      class="flex-1 m-1 btn btn-primary btn-sm ">
-        Edit
-      </router-link>
-      <BaseButton
-        @click="$emit('duplicate', palette)"
-        class=" flex-1 m-1  btn btn-sm btn-primary">Copy
-        </BaseButton>
-      <BaseButton 
-      @click="$emit('delete', palette)"
-      class=" flex-1 m-1 btn btn-sm btn-danger">Delete
-      </BaseButton>
-      </div>
+      <slot></slot>
   </div>
 </template>
 
@@ -30,7 +17,7 @@ import { Color } from '../utils/color';
 @Component({})
 export default class CPCompactPalette extends Vue {
   @Prop() public palette!: Palette;
-  @Prop() public paletteSetTotal!: number;
+  @Prop() public index?: number;
 }
 </script>
 
