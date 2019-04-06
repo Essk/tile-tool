@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="">
-    <div id="nav" class="flex flex-col p-4 bg-pink-darkest h-screen">
+    <div id="nav" class="flex flex-col p-4 bg-pink-darkest h-full">
       <router-link class="px-2 py-4 text-white uppercase no-underline font-bold" to="/">Library</router-link>
       <router-link class="px-2 py-4 text-white uppercase no-underline " to="/tiles">Tiles</router-link>
       <router-link class="px-2 py-4 text-white uppercase no-underline " to="/palettes">Palettes</router-link>
@@ -13,8 +13,9 @@
     
     <router-view class=" content"/>
 
-    <dialog :open="$store.state.modalOpen">
-      <component v-if="$store.state.modalComponent !== ''" :is="$store.state.modalComponent" ></component>
+    <dialog :open="$store.state.modalOpen" class="fixed pin w-full h-full justify-center items-center bg-grey-lightest">
+      <button class="absolute pin-t pin-r p-8" @click="$store.dispatch('setModalState',false)">X Close</button>
+      <component class=" w-4/5 bg-white p-8" v-if="$store.state.modalComponent !== ''" :is="$store.state.modalComponent" :modalProps="$store.state.modalProps" ></component>
     </dialog>
   </div>
 </template>
@@ -47,12 +48,8 @@ export default class App extends Vue {
 html {
   font-family: "Rubik", "Helvetica", sans-serif;
 }
-dialog {
-  position: absolute;
-  top:0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+dialog[open] {
+  display: flex;
 }
 #app{
   display: grid;
