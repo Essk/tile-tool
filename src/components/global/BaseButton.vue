@@ -1,5 +1,5 @@
 <template>
-    <button :class="varClass" >
+    <button :class="varClass" @click="clickt" >
         <slot></slot>
     </button>
 </template>
@@ -26,6 +26,9 @@ export default class BaseButton extends Vue {
         default:
         return '';
     }
+  }
+  private clickt() {
+    this.$emit('click');
   }
 }
 </script>
