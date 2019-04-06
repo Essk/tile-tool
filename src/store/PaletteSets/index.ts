@@ -1,13 +1,15 @@
 /* tslint:disable: no-shadowed-variable */
 import debounce from 'lodash/debounce';
 import { PaletteSet, PaletteSetFileData } from '@/utils/paletteSet';
+import { PSState } from './types';
+import { RootState } from '../types';
 import { Palette } from '@/utils/palette';
 
-import { GetterTree, ActionTree, MutationTree } from 'vuex';
+import { GetterTree, ActionTree, MutationTree, Module } from 'vuex';
 
-type PSGetter = GetterTree<State, any>;
+type PSGetter = GetterTree<PSState, any>;
 
-export const state: State = {
+export const state: PSState = {
     paletteSets : [],
     defaultPaletteSet: new PaletteSet({ name: 'new palette set', palettes: [ new Palette({}) ] }),
     paletteSet : new PaletteSet({ name: 'new palette set', palettes: [ new Palette({}) ] }),
@@ -20,7 +22,7 @@ export const getters: PSGetter = {
     paletteIndexById: (state) => (id: string) => state.paletteSet.palettes.findIndex( (palette) => palette.id === id ),
   };
 
-export const mutations: MutationTree<State>  = {
+export const mutations: MutationTree<PSState>  = {
     update(state, paletteSets) {
         state.paletteSets.splice(0, state.paletteSets.length, ...paletteSets);
     },
@@ -41,9 +43,9 @@ export const mutations: MutationTree<State>  = {
     },
 };
 
-export const actions: ActionTree<State, any> = {
+export const actions: ActionTree<PSState, any> = {
     init({ commit, rootState }) {
-        const paletteSets = rootState.fileStore.data.paletteSets
+        const paletteSets = rootState.filestore.data.paletteSets
         .map( (paletteSet: PaletteSetFileData ) =>  PaletteSet.hydrate(paletteSet) );
         commit('update', paletteSets);
     },
@@ -54,7 +56,7 @@ export const actions: ActionTree<State, any> = {
         commit('addPalette', palette);
         const replaceIdx = state.paletteSets.findIndex((ps) => ps.id === state.paletteSet.id );
         commit('setByIndex', {idx: replaceIdx, paletteSet: state.paletteSet});
-        rootState.fileStore.set('paletteSets', state.paletteSets);
+        saveAllPSToTemp(rootState, state);
     },
     removePalette({commit, rootState, state, getters}, palette: Palette) {
         const idToRemove = getters.paletteIndexById(palette.id);
@@ -70,17 +72,21 @@ export const actions: ActionTree<State, any> = {
         saveAllPSToTemp(rootState, state);
     },
 };
-
-
-export const namespaced = true;
-
-interface State  {
-    paletteSets: PaletteSet[];
-    defaultPaletteSet: PaletteSet;
-    paletteSet: PaletteSet;
-
-}
+const namespaced = true;
 
 const saveAllPSToTemp = debounce( (rs, state) => {
-    rs.fileStore.set('paletteSets', state.paletteSets);
+    rs.filestore.set('paletteSets', state.paletteSets);
 }, 100 );
+
+export const paletteSets: Module<PSState, RootState> = {
+    namespaced,
+    state,
+    getters,
+    actions,
+    mutations,
+};
+
+
+
+
+

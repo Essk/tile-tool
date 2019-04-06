@@ -25,11 +25,12 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { State, Getter, Action} from 'vuex-class';
+import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 import { Palette } from '../utils/palette';
 import { PaletteSet } from '../utils/paletteSet';
 import CPCompactPalette from '@/components/PaletteCompact.vue';
 import CPEditableTitle from '@/components/EditableTitle.vue';
+const paletteSets = namespace('@/store.PaletteSets');
 
 @Component({
   components: {
@@ -38,12 +39,12 @@ import CPEditableTitle from '@/components/EditableTitle.vue';
   },
 })
 export default class VWPaletteSet extends Vue {
-  @Action('setCurrent', { namespace: 'paletteSet' }) public setCurrent!: any;
-  @Action('addPalette', { namespace: 'paletteSet' }) public addPalette!: any;
-  @Action('removePalette', { namespace: 'paletteSet' }) public removePalette!: any;
-  @Action('setName', { namespace: 'paletteSet' }) public setName!: any;
+  @Action('setCurrent') public setCurrent!: any;
+  @Action('addPalette') public addPalette!: any;
+  @Action('removePalette') public removePalette!: any;
+  @Action('setName') public setName!: any;
+  @Getter('paletteSetById') private paletteSetbyId!: (id: string) => PaletteSet;
   @Prop() private id!: string;
-  @Getter('paletteSetById', { namespace: 'paletteSet' }) private paletteSetbyId!: (id: string) => PaletteSet;
   public created() {
     this.setCurrent(this.paletteSetbyId(this.id));
   }

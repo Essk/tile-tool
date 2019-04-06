@@ -1,15 +1,15 @@
-import Vue, { Component } from 'vue';
-import Vuex from 'vuex';
-
-import * as paletteSet from './modules/paletteSet';
+import Vue from 'vue';
+import Vuex, { StoreOptions } from 'vuex';
+import { RootState } from './types';
+import * as paletteSet from './PaletteSets';
 import { FileDataStore } from '@/utils/user-data';
 import { Tile, TileFileData } from '@/utils/tile';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store: StoreOptions<RootState> = {
   state: {
-    fileStore : new FileDataStore({
+    filestore : new FileDataStore({
       configName: 'user-data', defaults: {
         tiles: [new Tile({name: 'default store tile'})],
         paletteSets: [paletteSet.state.defaultPaletteSet],
@@ -47,11 +47,10 @@ export default new Vuex.Store({
   modules : {
     paletteSet,
   },
-});
-
-export type State = {
-  filestore: FileDataStore;
-  modalOpen: boolean;
-  modalComponent: string;
-  modalProps: any;
 };
+
+export default new Vuex.Store<RootState>(store);
+
+
+
+

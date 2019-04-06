@@ -15,11 +15,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { State, Getter, Mutation, Action} from 'vuex-class';
+
 import CPTile from '../components/Tile.vue';
 import CPPalette from '../components/Palette.vue';
 import PaletteSets from '@/views/PaletteSets.vue';
 import { PaletteSet } from '@/utils/paletteSet';
+import { PSState } from '@/store/paletteSets/types';
+import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
+const paletteSets = namespace('@/store.PaletteSets');
 @Component({
   components: {
     CPTile,
@@ -27,7 +30,7 @@ import { PaletteSet } from '@/utils/paletteSet';
   },
 })
 export default class Library extends Vue {
-  @Getter('paletteSets', { namespace: 'paletteSet' }) private paletteSets!: PaletteSet[];
+  @Getter('paletteSets') private paletteSets!: PaletteSet[];
 
 }
 /*

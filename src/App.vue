@@ -29,12 +29,14 @@ import { Color } from '@/utils/color';
 import Palettes from '@/views/Palettes.vue';
 import { Palette } from '@/utils/palette';
 import PaletteSets from '@/views/PaletteSets.vue';
-import { Action } from 'vuex-class';
+import { PSState } from '@/store/paletteSets/types';
+import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
+const paletteSets = namespace('@/store.PaletteSets');
 @Component({
   components: {},
 })
 export default class App extends Vue {
-  @Action('init', { namespace: 'paletteSet' }) public init: any;
+  @Action('init' ) public init: any;
   public created() {
     this.init();
   }
