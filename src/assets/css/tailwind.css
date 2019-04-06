@@ -1,3 +1,5 @@
+/*stylelint-disable css-semicolonexpected*/
+/*stylelint-disable css-ruleorselectorexpected*/
 @tailwind preflight;
 
 .btn {
