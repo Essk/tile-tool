@@ -36,7 +36,14 @@ describe('Color', () => {
     expect(Color.asHex({red: 21, green: 0, blue: 56})).toEqual('#150038');
     expect(Color.asHex({red: 97, green: 201, blue: 33})).toEqual('#61C921');
   });
-
+ it('provides 3 bit scale', () => {
+    const threeBitScale = [0, 36, 73, 109, 146, 182, 219, 255];
+    expect(Color.threeBit()).toEqual(threeBitScale);
+  });
+ it('provides 2 bit scale', () => {
+    const twoBitScale = [0, 85, 170, 255];
+    expect(Color.twoBit()).toEqual(twoBitScale);
+  });
 
 
 });

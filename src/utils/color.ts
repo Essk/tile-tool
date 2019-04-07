@@ -27,6 +27,12 @@ export class Color extends FileEntity {
         }
         return colors;
     }
+    public static threeBit(): number[] {
+        return [0, 36, 73, 109, 146, 182, 219, 255];
+    }
+    public static twoBit(): number[] {
+        return [0, 85, 170, 255];
+    }
     public static hydrate(fileColor: ColorFileData) {
         return new Color( fileColor );
     }
