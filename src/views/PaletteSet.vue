@@ -11,7 +11,7 @@
       :index="p_index"
       >
         <div class="buttons py-2 -mx-2 -mb-2 flex " >
-          <router-link :key="palette.id" :to="{ name: 'palette', params: { index: p_index}  }" 
+          <router-link  :to="{ name: 'palette', params: { index: p_index}  }" 
           class="flex-1 m-1 btn btn-primary btn-sm ">
             Edit
           </router-link>

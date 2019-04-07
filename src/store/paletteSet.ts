@@ -25,6 +25,7 @@ const getters: GetterTree<PSState, any> = {
     paletteSetById: (state) => (id: string) => state.paletteSets.find( (ps) => ps.id === id ),
     paletteSetIndexById: (state) => (id: string) => state.paletteSets.findIndex( (ps) => ps.id === id ),
     paletteIndexById: (state) => (id: string) => state.paletteSet.palettes.findIndex( (palette) => palette.id === id ),
+    paletteByIndex: (state) => (index: number) => state.paletteSet.palettes[index],
 };
 
 const actions: ActionTree<PSState, any> = {
@@ -55,11 +56,18 @@ const actions: ActionTree<PSState, any> = {
         // this should be an Action in rootState
         saveAllPSToTemp(rootState, state);
     },
+    updateColor({commit, rootState, state}, {p_index, c_index, color}) {
+        commit('updateColor', {p_index, c_index, color});
+        saveAllPSToTemp(rootState, state);
+    },
 };
 
 const mutations: MutationTree<PSState>  = {
     update(state, paletteSets) {
         state.paletteSets.splice(0, state.paletteSets.length, ...paletteSets);
+    },
+    updateColor(state, {p_index, c_index, color}) {
+        state.paletteSet.palettes[p_index].updateColor(c_index, color);
     },
     currentPS(state, paletteSet) {
         state.paletteSet = paletteSet;

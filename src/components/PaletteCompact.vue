@@ -3,7 +3,7 @@
         <h2> {{ palette.name}} </h2>
         <span> {{ palette.id }}</span>
       <div class="palette mt-2">
-        <span v-for="(color, c_index) in palette.colors" :key="c_index">
+        <span v-for="(color, c_index) in palette.colors" :key="c_index" :style="{backgroundColor: color.hex}">
         </span>
       </div>
       <slot></slot>

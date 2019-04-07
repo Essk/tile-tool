@@ -35,7 +35,7 @@ export default new Router({
         import(/* webpackChunkName: "paletteSets" */ './views/PaletteSets.vue'),
     },
     {
-      path: '/palette/:id',
+      path: '/paletteSet/:id/palette/:index',
       name: 'palette',
       component: () =>
         import(/* webpackChunkName: "palette" */ './views/Palette.vue'),
