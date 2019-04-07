@@ -12,12 +12,14 @@ interface PSState  {
     paletteSets: PaletteSet[];
     defaultPaletteSet: PaletteSet;
     ps_idx: number;
+    palette_idx: number;
 }
 
 const state: PSState = {
     paletteSets : [],
     defaultPaletteSet: new PaletteSet({ name: 'new palette set', palettes: [ new Palette({}) ] }),
     ps_idx : 0,
+    palette_idx: 0,
 };
 
 const getters: GetterTree<PSState, any> = {
@@ -28,6 +30,7 @@ const getters: GetterTree<PSState, any> = {
     paletteIndexById: (state) => (id: string) => state.paletteSets[state.ps_idx]
         .palettes.findIndex( (palette) => palette.id === id ),
     paletteByIndex: (state) => (index: number) => state.paletteSets[state.ps_idx].palettes[index],
+    palette: (state) => state.paletteSets[state.ps_idx].palettes[state.palette_idx],
 };
 
 const actions: ActionTree<PSState, any> = {
@@ -38,6 +41,9 @@ const actions: ActionTree<PSState, any> = {
     },
     setCurrent({commit}, idx) {
         commit('currentPS', idx);
+    },
+    setCurrentPalette({commit}, palette_idx) {
+        commit('currentPalette', palette_idx);
     },
     addPalette({commit, rootState, state}, palette: Palette) {
         commit('addPalette', palette);
@@ -56,6 +62,10 @@ const actions: ActionTree<PSState, any> = {
         // this should be an Action in rootState
         saveAllPSToTemp(rootState, state);
     },
+    setPaletteName({commit,  rootState, state}, name) {
+        commit('setPaletteName', name);
+        saveAllPSToTemp(rootState, state);
+    },
     updateColor({commit, rootState, state}, {p_index, c_index, color}) {
         commit('updateColor', {p_index, c_index, color});
         saveAllPSToTemp(rootState, state);
@@ -72,9 +82,10 @@ const mutations: MutationTree<PSState>  = {
     currentPS(state, idx) {
         state.ps_idx = idx;
     },
+    currentPalette(state, palette_idx) {
+        state.palette_idx = palette_idx;
+    },
     addPalette(state, palette) {
-        console.log('adding: ', palette);
-        console.log('to: ', state.paletteSets[state.ps_idx]);
         state.paletteSets[state.ps_idx].addPalette(palette);
     },
     deletePaletteByIndex(state, index) {
@@ -85,6 +96,11 @@ const mutations: MutationTree<PSState>  = {
     },
     setName(state, {idx, name}) {
         state.paletteSets[idx].name = name;
+    },
+    setPaletteName(state, name) {
+        state.paletteSets[state.ps_idx]
+        .palettes[state.palette_idx]
+        .name = name;
     },
 };
 

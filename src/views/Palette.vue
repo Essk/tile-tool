@@ -1,7 +1,10 @@
 <template>
   <div class="palette-view">
-    <CPPaletteEditable  :palette="paletteByIndex(index)" @selected="handleSelect"/>
-    <CPColorDetail :color="paletteByIndex(index).colors[selected]"></CPColorDetail>
+      <CPEditableTitle lineOne="Palette:" 
+      :lineTwo="palette.name" 
+      @input="handlePaletteName" />
+    <CPPaletteEditable  :palette="palette" @selected="handleSelect"/>
+    <CPColorDetail :color="palette.colors[selected]"></CPColorDetail>
     <CPColorDetail :color="activeColor" ></CPColorDetail>
     <CPColorPicker @updateActive="handleActive" @updateSelected="selectColor"></CPColorPicker>
   </div>
@@ -14,9 +17,12 @@ import { Color } from '../utils/color';
 import CPPaletteEditable from '../components/PaletteEditable.vue';
 import CPColorDetail from '../components/ColorDetail.vue';
 import CPColorPicker from '../components/ColorPicker.vue';
+import CPEditableTitle from '@/components/EditableTitle.vue';
 import Palettes from '@/views/Palettes.vue';
+
 @Component({
   components: {
+    CPEditableTitle,
     CPPaletteEditable,
     CPColorDetail,
     CPColorPicker,
@@ -27,15 +33,24 @@ export default class VWPalette extends Vue {
   public activeColor: Color = new Color();
   @Prop() private index!: number;
   @Getter('paletteByIndex') private paletteByIndex!: (index: number) => Palette;
+  @Getter('palette') private palette!: Palette;
   @Action('updateColor') private updateColor!: (payload: updateColorPayload) => void;
-  public handleSelect(selected: number) {
+  @Action('setCurrentPalette') private setCurrentPalette!: (palette_idx: number) => void;
+  @Action('setPaletteName') private setPaletteNam!: (name: string) => void;
+  private created() {
+    this.setCurrentPalette(this.index);
+  }
+  private handleSelect(selected: number) {
     this.selected = selected;
   }
-  public handleActive(active: Color) {
+  private handleActive(active: Color) {
     this.activeColor = active;
   }
-  public selectColor(color: Color) {
+  private selectColor(color: Color) {
     this.updateColor({p_index: this.index, c_index: this.selected, color: this.activeColor});
+  }
+  private handlePaletteName(name: string) {
+    this.setPaletteNam(name);
   }
 }
 type updateColorPayload = {

@@ -101,5 +101,11 @@ describe('Palette', () => {
     expect(copyPalette.id).toBeTruthy();
     expect(copyPalette.id).toEqual(expect.not.stringMatching(origPalette.id));
   });
+  it('can update it\'s name', () => {
+    const palette = new Palette({});
+    const name = 'badgerville';
+    palette.name = name;
+    expect(palette.name).toEqual(name);
+  });
 });
 
