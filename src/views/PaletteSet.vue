@@ -1,11 +1,11 @@
 <template>
 <div class="view-content p-8">
   <CPEditableTitle lineOne="PaletteSet:" 
-  :lineTwo="paletteSetbyId(id).name" 
-  :lineThree="`${paletteSetbyId(id).palettes.length} of 16 palettes defined`"
+  :lineTwo="paletteSet.name" 
+  :lineThree="`${paletteSet.palettes.length} of 16 palettes defined`"
   @input="handlePSName" />
   <div class=" grid-display palette-set-view w-full -mx-4 my-4">
-    <template v-for="(palette, p_index) in paletteSetbyId(id).palettes">
+    <template v-for="(palette, p_index) in paletteSet.palettes">
       <CPCompactPalette  :key="palette.id"  class="my-0 mx-auto p-4  bg-grey-lightest"
       :palette="palette" 
       :index="p_index"
@@ -16,7 +16,7 @@
             Edit
           </router-link>
           <BaseButton
-            :disabled="paletteSetbyId(id).palettes.length >= 16"
+            :disabled="paletteSet.palettes.length >= 16"
             @click="prepareCopyPalette(palette)"
             class=" flex-1 m-1  btn btn-sm btn-primary">Copy
             </BaseButton>
@@ -27,7 +27,7 @@
         </div>
       </CPCompactPalette>
     </template>
-    <button v-if="paletteSetbyId(id).palettes.length < 16" @click="prepareNewPalette"
+    <button v-if="paletteSet.palettes.length < 16" @click="prepareNewPalette"
     class="border-grey border-dashed border-4 "
     >+ Add palette</button>
   </div>
@@ -59,10 +59,11 @@ export default class VWPaletteSet extends Vue {
   @Action('setModalState') private setModalState!: ( state: boolean ) => void;
   @Action('setModalComponent') private setModalComponent!: ( componentName: string) => void;
   @Action('setModalProps') private setModalProps!: ( props: any) => void;
-  @Getter('paletteSetById') private paletteSetbyId!: (id: string) => PaletteSet;
+  @Getter('paletteSetIndexById') private paletteSetIndexById!: (id: string) => number;
+  @Getter('paletteSet') private paletteSet!: PaletteSet;
   @Prop() private id!: string;
   public created() {
-    this.setCurrent(this.paletteSetbyId(this.id));
+    this.setCurrent(this.paletteSetIndexById(this.id));
   }
   private handlePSName(name: string) {
     this.setName({id: this.id, name});
