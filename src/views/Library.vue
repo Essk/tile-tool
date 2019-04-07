@@ -20,9 +20,7 @@ import CPTile from '../components/Tile.vue';
 import CPPalette from '../components/Palette.vue';
 import PaletteSets from '@/views/PaletteSets.vue';
 import { PaletteSet } from '@/utils/paletteSet';
-import { PSState } from '@/store/paletteSets/types';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
-const paletteSets = namespace('@/store.PaletteSets');
 @Component({
   components: {
     CPTile,
@@ -33,16 +31,5 @@ export default class Library extends Vue {
   @Getter('paletteSets') private paletteSets!: PaletteSet[];
 
 }
-/*
-
-    <template v-if="tileData.tiles.length > 0">
-      <div class="ribbon">
-          <CPTile v-for="tile in tileData.tiles" :key="tile.id" :tile="tile"/>
-      </div>
-    </template>
-
-
-
-*/
 </script>
 

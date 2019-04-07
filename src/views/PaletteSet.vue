@@ -41,7 +41,6 @@ import { Palette } from '../utils/palette';
 import { PaletteSet } from '../utils/paletteSet';
 import CPCompactPalette from '@/components/PaletteCompact.vue';
 import CPEditableTitle from '@/components/EditableTitle.vue';
-const paletteSets = namespace('@/store/PaletteSets');
 
 @Component({
   components: {
@@ -50,62 +49,66 @@ const paletteSets = namespace('@/store/PaletteSets');
   },
 })
 export default class VWPaletteSet extends Vue {
+  @State('modalState') public modalState!: boolean;
+  @State('modalComponent') public modalComponent!: string;
+  @State('modalProps') public modalProps!: any;
   @Action('setCurrent') public setCurrent!: any;
   @Action('addPalette') public addPalette!: any;
   @Action('removePalette') public removePalette!: any;
   @Action('setName') public setName!: any;
+  @Action('setModalState') private setModalState!: ( state: boolean ) => void;
+  @Action('setModalComponent') private setModalComponent!: ( componentName: string) => void;
+  @Action('setModalProps') private setModalProps!: ( props: any) => void;
   @Getter('paletteSetById') private paletteSetbyId!: (id: string) => PaletteSet;
   @Prop() private id!: string;
   public created() {
     this.setCurrent(this.paletteSetbyId(this.id));
   }
-
   private handlePSName(name: string) {
     this.setName({id: this.id, name});
   }
   private prepareCopyPalette(paletteToCopy: Palette) {
-    this.$store.dispatch('setModalState', true);
-    this.$store.dispatch('setModalComponent', 'TitleDialog');
-    this.$store.dispatch('setModalProps', {
+    this.setModalState(true);
+    this.setModalComponent('TitleDialog');
+    this.setModalProps( {
       confirm: (name: string) => {
         const palette = Palette.duplicate(paletteToCopy);
         palette.name = name;
         this.addPalette(palette);
-        this.$store.dispatch('setModalState', false);
+        this.setModalState(false);
       },
       cancel: () => {
-        this.$store.dispatch('setModalState', false);
+        this.setModalState(false);
       },
     });
   }
   private prepareNewPalette() {
-    this.$store.dispatch('setModalState', true);
-    this.$store.dispatch('setModalComponent', 'TitleDialog');
-    this.$store.dispatch('setModalProps', {
+    this.setModalState(true);
+    this.setModalComponent('TitleDialog');
+    this.setModalProps({
       confirm: (name: string) => {
         const palette = new Palette({name});
         this.addPalette(palette);
         this.$store.dispatch('setModalState', false);
       },
       cancel: () => {
-        this.$store.dispatch('setModalState', false);
+        this.setModalState(false);
       },
     });
   }
   private prepareDeletePalette(paletteToRemove: Palette) {
-    this.$store.dispatch('setModalState', true);
-    this.$store.dispatch('setModalComponent', 'RemovePaletteDialog');
-    this.$store.dispatch('setModalProps', {
+    this.setModalState(true);
+    this.setModalComponent('RemovePaletteDialog');
+    this.setModalProps({
       confirm: () => {
         this.removePalette(paletteToRemove);
-        this.$store.dispatch('setModalState', false);
+        this.setModalState(false);
       },
       cancel: () => {
-        this.$store.dispatch('setModalState', false);
+        this.setModalState(false);
       },
       paletteToRemove,
     });
-
   }
 }
 </script>

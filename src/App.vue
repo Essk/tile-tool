@@ -13,36 +13,33 @@
     
     <router-view class=" content"/>
 
-    <dialog :open="$store.state.modalOpen" class="fixed pin w-full h-full justify-center items-center bg-grey-lightest">
-      <button class="absolute pin-t pin-r p-8" @click="$store.dispatch('setModalState',false)">X Close</button>
-      <component class=" w-4/5 bg-white p-8" v-if="$store.state.modalComponent !== ''" :is="$store.state.modalComponent" :modalProps="$store.state.modalProps" ></component>
+    <dialog :open="modalOpen" class="fixed pin w-full h-full justify-center items-center bg-grey-lightest">
+      <button class="absolute pin-t pin-r p-8" @click="setModalState(false)">X Close</button>
+      <component class=" w-4/5 bg-white p-8" v-if="modalComponent !== ''" :is="modalComponent" :modalProps="modalProps" ></component>
     </dialog>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { TileDataController } from '@/utils/TileDataController';
+import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 import { Tile } from '@/utils/tile';
 import { PaletteSet } from '@/utils/paletteSet';
 import { Color } from '@/utils/color';
-import Palettes from '@/views/Palettes.vue';
 import { Palette } from '@/utils/palette';
+import Palettes from '@/views/Palettes.vue';
 import PaletteSets from '@/views/PaletteSets.vue';
-import { PSState } from '@/store/paletteSets/types';
-import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
-const paletteSets = namespace('@/store.PaletteSets');
-@Component({
-  components: {},
-})
+
+
+@Component
 export default class App extends Vue {
-  @Action('init' ) public init: any;
+  @State((state) => state.modals.modalOpen) public modalOpen!: boolean;
+  @State((state) => state.modals.modalComponent) public modalComponent!: string;
+  @State((state) => state.modals.modalProps) public modalProps!: any;
+  @Action('init') private init!: () => void;
+  @Action('setModalState') private setModalState!: ( state: boolean ) => void;
   public created() {
     this.init();
-  }
-  public showModal() {
-    this.$store.dispatch('setModalState', true);
-    this.$store.dispatch('setModalComponent', 'TitleDialog');
   }
 }
 </script>
