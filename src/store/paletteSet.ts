@@ -56,7 +56,7 @@ const actions: ActionTree<PSState, any> = {
             saveAllPSToTemp(rootState, state);
         }
     },
-    setName({commit, getters, rootState, state}, {id, name}) {
+    setName({commit, rootState, state}, name) {
         const idx = state.ps_idx;
         commit('setName', {idx, name});
         // this should be an Action in rootState
