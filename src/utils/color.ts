@@ -41,7 +41,6 @@ export class Color extends FileEntity {
     private _red: number;
     private _green: number;
     private _blue: number;
-    private _hex: string;
     constructor(opts?: IColor | ColorFileData) {
         super();
         this.threeBitScale = [0, 36, 73, 109, 146, 182, 219, 255];
@@ -59,7 +58,7 @@ export class Color extends FileEntity {
             this._green = 255;
             this._blue =  255;
         }
-        this._hex = Color.asHex({red: this._red, green: this._green, blue: this._blue});
+
     }
     private normaliseThree(value: number): number {
         const clamped = clampedValue(value);
@@ -102,17 +101,27 @@ export class Color extends FileEntity {
     private isFromFile(opts: IColor | ColorFileData): opts is ColorFileData {
         return (opts as ColorFileData)._red !== undefined;
     }
+
     get red() {
         return this._red;
+    }
+    set red(value) {
+        this._red = this.normaliseThree(value);
     }
     get green() {
         return this._green;
     }
+    set green(value) {
+        this._green = this.normaliseThree(value);
+    }
     get blue() {
         return this._blue;
     }
+    set blue(value) {
+        this._blue = this.normaliseThree(value);
+    }
     get hex() {
-        return this._hex;
+        return Color.asHex({red: this._red, green: this._green, blue: this._blue});
     }
 
 }

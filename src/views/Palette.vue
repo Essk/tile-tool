@@ -1,12 +1,16 @@
 <template>
-  <div class="palette-view">
-      <CPEditableTitle lineOne="Palette:" 
+  <div class="palette-view bg-grey-lightest">
+      <CPEditableTitle 
+      class="header"
+      lineOne="Palette:" 
       :lineTwo="palette.name" 
       @input="handlePaletteName" />
     <CPPaletteEditable  :palette="palette" @selected="handleSelect"/>
-    <CPColorDetail :color="palette.colors[selected]"></CPColorDetail>
-    <CPColorDetail :color="activeColor" ></CPColorDetail>
+    
+    <CPColorSliderLockup class="picker" @updateSelected="selectColor" :color="palette.colors[selected]"/>
+   <!--
     <CPColorPicker @updateActive="handleActive" @updateSelected="selectColor"></CPColorPicker>
+    -->
   </div>
 </template>
 <script lang="ts">
@@ -18,6 +22,7 @@ import CPPaletteEditable from '../components/PaletteEditable.vue';
 import CPColorDetail from '../components/ColorDetail.vue';
 import CPColorPicker from '../components/ColorPicker.vue';
 import CPEditableTitle from '@/components/EditableTitle.vue';
+import CPColorSliderLockup from '@/components/ColorSliderLockup.vue';
 import Palettes from '@/views/Palettes.vue';
 
 @Component({
@@ -26,6 +31,7 @@ import Palettes from '@/views/Palettes.vue';
     CPPaletteEditable,
     CPColorDetail,
     CPColorPicker,
+    CPColorSliderLockup,
   },
 })
 export default class VWPalette extends Vue {
@@ -63,20 +69,28 @@ type updateColorPayload = {
 <style lang="scss" scoped>
 .palette-view {
   display: grid;
+  grid-gap: 2em;
+  padding:2em;
   grid-template-columns: 256px 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  height: 100vh;
+  grid-template-rows: auto 1fr 1fr;
+    grid-template-areas:
+    "palette header header"
+    "palette picker info"
+    "palette picker info";
+}
+.header{
+  grid-area: header;
 }
 .palette-wrap {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 3;
+  grid-area: palette
 }
-.color-picker {
-  grid-column-start: 2;
-  grid-column-end: 4;
-  grid-row-start: 2;
-  grid-row-end: 3;
+.active {
+  grid-area: active;
+}
+.selected {
+  grid-area: select;
+}
+.picker {
+  grid-area: picker;
 }
 </style>

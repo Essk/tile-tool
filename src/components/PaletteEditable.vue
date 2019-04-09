@@ -1,6 +1,6 @@
 <template>
-  <div class="palette-wrap">
-    <div class="palette">
+  <div class="palette-wrap bg-grey-light p-4">
+    <div class="palette ">
       <div class="palette__color-swatch-wrap"  
       v-for="(color, index) in palette.colors" 
       :key="index">
@@ -94,13 +94,13 @@ function getElementIndex(element: HTMLElement): number | undefined {
 
 <style scoped lang="scss">
 .palette {
-  width: 256px;
+  //width: 256px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(1fr, 16);
   &__color-swatch-wrap {
-    padding: 2px 4px;
-    background-color: white;
+    padding:  4px;
+   // background-color: white;
     &--selected {
       background-color: red;
     }
