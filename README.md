@@ -1,34 +1,14 @@
-# tile-editor
+# Tile-Tool
 
-## Project setup
-```
-npm install
-```
+This README is largey in a placeholder state. 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Create and edit tiles and Palettes for use with ZX Spectrum Next tile mode
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Installation
 
-### Run your tests
-```
-npm run test
-```
+_System Requirements_:  
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Run your unit tests
-```
-npm run test:unit
-```
+1) ...
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+2) ...
