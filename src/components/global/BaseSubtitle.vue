@@ -1,12 +1,12 @@
 <template>
-<div class="subheader">
+<div class="title">
     <div class="relative">
         <h2>
-            <span v-if="lineOne && lineOne.trim() !== '' " class="block text-2xl">{{ lineOne }}</span>
-            <span class="block text-3xl" >{{ lineTwo }}</span>
+            <span v-if="hasTop" class="block text-2xl"><slot name="top"></slot></span>
+            <span class="block text-3xl" ><slot></slot></span>
         </h2>
     </div>
-  <span v-if="lineThree && lineThree.trim() !== '' " class="page-title__line-three">{{ lineThree }}</span>
+  <span v-if="hasBottom" class="page-title__line-three"><slot name="bottom"></slot></span>
   
   </div>
 </template>
@@ -15,34 +15,15 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component({})
 export default class BaseSubtitle extends Vue {
-         @Prop() private lineOne?: string;
-         @Prop() private lineTwo!: string;
-         @Prop() private lineThree?: string;
+    get hasTop(): boolean {
+        return !!this.$slots.top;
     }
+    get hasBottom(): boolean {
+        return !!this.$slots.bottom;
+    }
+}
 </script>
 
 <style scoped lang="scss">
-.header{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
 
-
-.h2-wrap{
-position: relative;
-}
-    .sub-title{
-        display: inline-block;
-        margin: 0;
-        &__line-one{ 
-            display: block;
-            font-size: 20px;;
-        }
-        &__line-two{
-            display: block;
-            font-size: 24px;
-        }
-        
-    }
 </style>

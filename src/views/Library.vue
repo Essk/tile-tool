@@ -1,10 +1,11 @@
 <template>
   <div class="library view-content p-8">
-    <BaseTitle
-    :lineTwo="'Library'" 
-    />
-    <BaseSubtitle lineTwo="Palette Sets" class="mt-4"/>
-    <router-link class="mt-2 font-bold text-grey-darkest no-underline inline-block border-b border-dashed border-grey-darkest"  to="/paletteSets"> All Palette Sets </router-link>
+    <BaseTitle>Library</BaseTitle>
+    <BaseSubtitle class="mt-8">Palette Sets
+      <template slot="bottom">
+        <router-link class="mt-2 font-bold text-grey-darkest no-underline inline-block border-b border-dashed border-grey-darkest"  to="/paletteSets"> All Palette Sets </router-link>
+      </template> 
+    </BaseSubtitle>
     <template v-if="paletteSets.length > 0">
        <div class="ribbon ">
           <router-link 
@@ -15,7 +16,7 @@
           </router-link>
       </div>
     </template>
-    <BaseSubtitle lineTwo="Tiles" class="mt-4"/>
+    <BaseSubtitle class="mt-4">Tiles</BaseSubtitle>
     <router-link class="mt-2 font-bold text-grey-darkest no-underline inline-block border-b border-dashed border-grey-darkest"  to="/tiles"> All Tiles </router-link>
       <template v-if="tiles.length > 0">
        <div class="ribbon ">

@@ -1,16 +1,23 @@
 <template>
   <div class="compact-tile-wrap">
-        <BaseSubsubtitle :line_one="tile.id" :line_two="tile.name" :lineThree="`Palette Set: ${ps.name}, Palette: ${palette.name}`"/>
+        <BaseSubsubtitle>
+          {{ tile.name }}
+          <template slot="bottom" v-if="hasPaletteSet">bottolm</template>
+          <template slot="bottom" v-else>No palette set assigned </template>
+        </BaseSubsubtitle>
 
-      <div class="tile mt-2">
-        <template v-if="hasPaletteSet">
-          <span v-for="(px, px_index) in tile.px" :key="px_index" >
-              {{ px }}
+      <div class="tile mt-2" :class="hasPaletteSet ? '' : 'border-l border-b border-dashed border-grey'">
+          <div v-for="(px, px_index) in tile.px" :key="px_index" 
+          class="inline-block w-8 h-8 relative align-middle"
+          :class="[
+            hasPaletteSet ? '' : ' border-dashed border-grey', 
+            hasPaletteSet && px_index === 0 ? 'border': 'border-t border-r', ] "
+          >
+          <span class="block w-4 h-4 p-1 bg-white absolute pin-r pin-b text-xs">
+            {{ px }}
           </span>
-        </template>
-        <template v-else> 
-          No PaletteSet
-        </template>
+              
+          </div>
       </div>
       <slot></slot>
   </div>
@@ -44,18 +51,10 @@ export default class CPCompactTile extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.palette {
+.tile{
+  width: 256px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-gap: 4px;
-  
-  span {
-    display: block;
-    border: 1px dotted grey;
-    height: 64px;
-    width: 64px;
-    border-radius: 16px;
-  }
+  grid-template-columns: 32px 32px 32px 32px 32px 32px 32px 32px;
+  grid-template-rows: 32px 32px 32px 32px 32px 32px 32px 32px;
 }
 </style>

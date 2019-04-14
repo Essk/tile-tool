@@ -1,12 +1,12 @@
 <template>
-<div class="header">
+<div class="title">
     <div class="relative">
         <h1>
-            <span v-if="lineOne && lineOne.trim() !== '' " class="block text-2xl">{{ lineOne }}</span>
-            <span class="block text-5xl" >{{ lineTwo }}</span>
+            <span v-if="hasTop" class="block text-2xl"><slot name="top"></slot></span>
+            <span class="block text-5xl" ><slot></slot></span>
         </h1>
     </div>
-  <span v-if="lineThree && lineThree.trim() !== '' " class="page-title__line-three">{{ lineThree }}</span>
+  <span v-if="hasBottom"><slot name="bottom"></slot></span>
   </div>
 </template>
 
@@ -14,18 +14,17 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component({})
 export default class BaseTitle extends Vue {
-         @Prop() private lineOne?: string;
-         @Prop() private lineTwo!: string;
-         @Prop() private lineThree?: string;
+    get hasTop(): boolean {
+        return !!this.$slots.top;
     }
+    get hasBottom(): boolean {
+        return !!this.$slots.bottom;
+    }
+  }
 </script>
 
 <style scoped lang="scss">
-.header{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
+
 
 
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>Palettes</h1>
+    <Basetitle>Palettes</Basetitle>
       <div class="ribbon">
           <CPPalette v-for="palette in tileData.palettes" :key="palette.id" :palette="palette"/>
       </div>

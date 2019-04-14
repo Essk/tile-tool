@@ -1,8 +1,9 @@
 <template>
-  <div class="compact-palette-wrap">
-        <h2> {{ palette.name}} </h2>
-        <span> {{ palette.id }}</span>
-      <div class="palette mt-2">
+  <div class="compact-palette-wrap flex flex-col">
+    <BaseSubtitle>{{palette.name}}
+    <template slot="bottom">{{ palette.id }}</template>
+    </BaseSubtitle>
+      <div class="palette mt-auto">
         <span v-for="(color, c_index) in palette.colors" :key="c_index" :style="{backgroundColor: color.hex}">
         </span>
       </div>
@@ -21,7 +22,6 @@ export default class CPCompactPalette extends Vue {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .palette {
   display: grid;

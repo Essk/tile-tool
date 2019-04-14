@@ -33,5 +33,9 @@
     @apply bg-green-dark;
 }
 
+.title {
+    @apply flex flex-col items-start
+}
+
 @tailwind components;
 @tailwind utilities;

@@ -1,6 +1,9 @@
 <template>
   <div class="compact-paletteset-wrap">
-    <BaseSubsubtitle :lineTwo="paletteSet.name" :lineThree="paletteSet.id" />
+    <BaseSubsubtitle>
+    {{ paletteSet.name }}
+    <template slot="bottom"> {{ paletteSet.id }}</template>
+    </BaseSubsubtitle>
       <div class="palettes mt-2">
         <template v-for="p_index in 16">
           <div class="palette" v-if=" typeof paletteSet.palettes[p_index - 1] !== 'undefined'"  :key="p_index">
