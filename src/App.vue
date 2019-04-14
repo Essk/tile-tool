@@ -1,6 +1,6 @@
 <template>
-  <div id="app" class="">
-    <div id="nav" class="flex flex-col p-4 bg-pink-darkest h-full">
+  <div id="app" class="h-full">
+    <div id="nav" class="flex flex-col p-4 bg-pink-darkest h-full min-h-screen">
       <router-link class="px-2 py-4 text-white uppercase no-underline font-bold" to="/">Library</router-link>
       <router-link class="px-2 py-4 text-white uppercase no-underline " to="/tiles">Tiles</router-link>
       <router-link class="px-2 py-4 text-white uppercase no-underline " to="/palettes">Palettes</router-link>
@@ -39,6 +39,7 @@ export default class App extends Vue {
   @Action('init') private init!: () => void;
   @Action('setModalState') private setModalState!: ( state: boolean ) => void;
   public created() {
+
     this.init();
   }
 }

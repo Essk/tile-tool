@@ -34,7 +34,7 @@ const getters: GetterTree<PSState, any> = {
 };
 
 const actions: ActionTree<PSState, any> = {
-    init({ commit, rootState }) {
+    psInit({ commit, rootState }) {
         const paletteSets = rootState.fsStore.filestore.data.paletteSets
         .map( (paletteSet: PaletteSetFileData ) =>  PaletteSet.hydrate(paletteSet) );
         commit('update', paletteSets);
