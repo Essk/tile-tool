@@ -4,6 +4,7 @@ import { fsStore } from './fsStore';
 import { paletteSets } from './paletteSet';
 import { tiles } from './tiles';
 import { modals } from './modals';
+import { palettes } from './palettes';
 
 Vue.use(Vuex);
 
@@ -13,11 +14,13 @@ export const store = new Vuex.Store( {
         paletteSets,
         tiles,
         modals,
+        palettes,
     },
     actions : {
         init({rootState, dispatch}) {
             dispatch('psInit');
             dispatch('tileInit');
+            dispatch('palettes/init');
         },
     },
 });
