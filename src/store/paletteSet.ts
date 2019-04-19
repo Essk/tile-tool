@@ -3,7 +3,7 @@ import { PaletteSet, PaletteSetFileData } from '@/utils/paletteSet';
 import { Palette } from '@/utils/palette';
 import { GetterTree, ActionTree, MutationTree, Module } from 'vuex';
 import debounce from 'lodash/debounce';
-
+const namespaced = true;
 const saveAllPSToTemp = debounce( (rs, state) => {
     rs.fsStore.filestore.set('paletteSets', state.paletteSets);
 }, 100 );
@@ -34,7 +34,7 @@ const getters: GetterTree<PSState, any> = {
 };
 
 const actions: ActionTree<PSState, any> = {
-    psInit({ commit, rootState }) {
+    init({ commit, rootState }) {
         const paletteSets = rootState.fsStore.filestore.data.paletteSets
         .map( (paletteSet: PaletteSetFileData ) =>  PaletteSet.hydrate(paletteSet) );
         commit('update', paletteSets);

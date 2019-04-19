@@ -18,7 +18,7 @@ export const store = new Vuex.Store( {
     },
     actions : {
         init({rootState, dispatch}) {
-            dispatch('psInit');
+            dispatch('paletteSets/init');
             dispatch('tileInit');
             dispatch('palettes/init');
         },

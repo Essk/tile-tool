@@ -41,7 +41,7 @@ import { Palette } from '../utils/palette';
 import { PaletteSet } from '../utils/paletteSet';
 import CPCompactPalette from '@/components/PaletteCompact.vue';
 import CPEditableTitle from '@/components/EditableTitle.vue';
-
+const PSStore = namespace('paletteSets');
 @Component({
   components: {
     CPCompactPalette,
@@ -52,15 +52,15 @@ export default class VWPaletteSet extends Vue {
   @State('modalState') public modalState!: boolean;
   @State('modalComponent') public modalComponent!: string;
   @State('modalProps') public modalProps!: any;
-  @Action('setCurrent') public setCurrent!: any;
-  @Action('addPalette') public addPalette!: any;
-  @Action('removePalette') public removePalette!: any;
-  @Action('setName') public setName!: any;
+  @PSStore.Action('setCurrent') public setCurrent!: any;
+  @PSStore.Action('addPalette') public addPalette!: any;
+  @PSStore.Action('removePalette') public removePalette!: any;
+  @PSStore.Action('setName') public setName!: any;
+  @PSStore.Getter('paletteSetIndexById') public paletteSetIndexById!: (id: string) => number ;
   @Action('setModalState') private setModalState!: ( state: boolean ) => void;
   @Action('setModalComponent') private setModalComponent!: ( componentName: string) => void;
   @Action('setModalProps') private setModalProps!: ( props: any) => void;
-  @Getter('paletteSetIndexById') private paletteSetIndexById!: (id: string) => number;
-  @Getter('paletteSet') private paletteSet!: PaletteSet;
+  @PSStore.Getter('paletteSet') private paletteSet!: PaletteSet;
   @Prop() private id!: string;
   public created() {
     this.setCurrent(this.paletteSetIndexById(this.id));
