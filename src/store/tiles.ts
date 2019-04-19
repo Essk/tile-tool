@@ -21,7 +21,7 @@ const state: TileState = {
 
 const getters: GetterTree<TileState, any> = {
     tiles: (state) => state.tiles,
-    tile: (state, getters) => (id: string) => getters.tileById(state.tile_id),
+    tile: (state, getters) => getters.tileById(state.tile_id),
     tileById: (state) => (id: string) => state.tiles.find( (tile) => tile.id === id ),
     tileIndexById: (state) => (id: string) => state.tiles.findIndex( (tile) => tile.id === id ),
 };
