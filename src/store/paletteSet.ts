@@ -17,7 +17,7 @@ interface PSState  {
 
 const state: PSState = {
     paletteSets : [],
-    defaultPaletteSet: new PaletteSet({ name: 'new palette set', palettes: [ new Palette({}) ] }),
+    defaultPaletteSet: new PaletteSet({ name: 'new palette set', palettes: [ ] }),
     ps_idx : 0,
     palette_idx: 0,
 };
@@ -28,7 +28,7 @@ const getters: GetterTree<PSState, any> = {
     paletteSetById: (state) => (id: string) => state.paletteSets.find( (ps) => ps.id === id ),
     paletteSetIndexById: (state) => (id: string) => state.paletteSets.findIndex( (ps) => ps.id === id ),
     paletteIndexById: (state) => (id: string) => state.paletteSets[state.ps_idx]
-        .palettes.findIndex( (palette) => palette.id === id ),
+        .palettes.findIndex( (palette) => palette === id ),
     paletteByIndex: (state) => (index: number) => state.paletteSets[state.ps_idx].palettes[index],
     palette: (state) => state.paletteSets[state.ps_idx].palettes[state.palette_idx],
 };
@@ -62,22 +62,11 @@ const actions: ActionTree<PSState, any> = {
         // this should be an Action in rootState
         saveAllPSToTemp(rootState, state);
     },
-    setPaletteName({commit,  rootState, state}, name) {
-        commit('setPaletteName', name);
-        saveAllPSToTemp(rootState, state);
-    },
-    updateColor({commit, rootState, state}, {p_index, c_index, color}) {
-        commit('updateColor', {p_index, c_index, color});
-        saveAllPSToTemp(rootState, state);
-    },
 };
 
 const mutations: MutationTree<PSState>  = {
     update(state, paletteSets) {
         state.paletteSets.splice(0, state.paletteSets.length, ...paletteSets);
-    },
-    updateColor(state, {p_index, c_index, color}) {
-        state.paletteSets[state.ps_idx].palettes[p_index].updateColor(c_index, color);
     },
     currentPS(state, idx) {
         state.ps_idx = idx;
@@ -97,14 +86,10 @@ const mutations: MutationTree<PSState>  = {
     setName(state, {idx, name}) {
         state.paletteSets[idx].name = name;
     },
-    setPaletteName(state, name) {
-        state.paletteSets[state.ps_idx]
-        .palettes[state.palette_idx]
-        .name = name;
-    },
 };
 
 export const paletteSets = {
+    namespaced,
     state,
     getters,
     actions,
