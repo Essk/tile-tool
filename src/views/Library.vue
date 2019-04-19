@@ -43,6 +43,7 @@ import PaletteSets from '@/views/PaletteSets.vue';
 import { PaletteSet } from '@/utils/paletteSet';
 import { Tile } from '@/utils/tile';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
+const PSStore = namespace('paletteSets');
 @Component({
   components: {
     CPTile,
@@ -52,7 +53,7 @@ import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
   },
 })
 export default class Library extends Vue {
-  @Getter('paletteSets') private paletteSets!: PaletteSet[];
+  @PSStore.Getter('paletteSets') private paletteSets!: PaletteSet[];
   @Getter('tiles') private tiles!: Tile[];
 
 }

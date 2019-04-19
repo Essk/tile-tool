@@ -30,10 +30,11 @@ import { Palette } from '../utils/palette';
 import { PaletteSet } from '../utils/paletteSet';
 import { Tile } from '../utils/tile';
 import { Color } from '../utils/color';
+const PSStore = namespace('paletteSets');
 @Component({})
 export default class CPCompactTile extends Vue {
   @Prop() public tile!: Tile;
-  @Getter('paletteSetById') private paletteSetById!: (id: string) => PaletteSet;
+  @PSStore.Getter('paletteSetById') private paletteSetById!: (id: string) => PaletteSet;
 
   get hasPaletteSet(): boolean {
     return (
