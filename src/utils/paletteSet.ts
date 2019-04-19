@@ -1,16 +1,15 @@
 import { FileEntity } from './Storeable';
-import { Palette, PaletteFileData } from './palette';
+import { Palette } from './palette';
 import uniqid from 'uniqid';
 type Opts = {
   id?: string;
   name?: string;
-  palettes?: Palette[];
-
+  palettes?: string[];
 };
 export type PaletteSetFileData = {
   _id: string;
   _name: string;
-  _palettes: PaletteFileData[];
+  _palettes: string[];
 };
 export class PaletteSet extends FileEntity {
   public static hydrate(filePaletteSet: PaletteSetFileData) {
@@ -19,18 +18,18 @@ export class PaletteSet extends FileEntity {
   private _name: string;
   private _id: string;
   private _len: number;
-  private _palettes: Palette[];
+  private _palettes: string[];
   constructor(opts: Opts | PaletteSetFileData) {
     super();
     this._len = 16;
     if (this.isFromFile(opts)) {
       this._name = opts._name;
       this._id = opts._id;
-      this._palettes = opts._palettes.map( (palette) => Palette.hydrate(palette) );
+      this._palettes = opts._palettes;
     } else {
       this._name = opts.name || 'new palette';
       this._id = opts.id || this.makeId();
-      this._palettes = this.validatePalettes( opts.palettes);
+      this._palettes = opts.palettes || [];
     }
   }
   get name(): string {
@@ -45,39 +44,22 @@ export class PaletteSet extends FileEntity {
   get palettes() {
     return this._palettes;
   }
-  public removePaletteByIndex(idx: any): void {
+  public removePaletteByIndex(idx: number): void {
     if (this.validIdx(idx)) {
       this.palettes.splice(idx, 1);
     }
   }
-  public addPalette(palette: any): void {
-    if (palette instanceof Palette && this._palettes.length < this._len) {
-      this._palettes.push(palette);
+  public addPalette(palette: Palette | string): void {
+    const id = palette instanceof Palette ? palette.id : palette;
+    if (this._palettes.length < this._len) {
+      this._palettes.push(id);
     }
   }
   private makeId(): string {
     return uniqid('paletteSet-');
   }
-  private validIdx(idx: any): boolean {
+  private validIdx(idx: number): boolean {
     return Number.isInteger(idx) && idx >= 0 && idx < this._len;
-  }
-
-  private validatePalettes( palettes: any[] | undefined ): Palette[] {
-    let clippedPalettes = palettes;
-    if (palettes !== undefined &&  palettes.length > this._len) {
-      clippedPalettes = palettes.splice(this._len - 1 );
-    }
-    if (clippedPalettes !== undefined ) {
-      return clippedPalettes.map( (palette) => {
-        if ( palette instanceof Palette ) {
-          return palette;
-        } else {
-          return new Palette({});
-        }
-       } );
-    } else  {
-      return [];
-    }
   }
 
   private isFromFile(opts: Opts | PaletteSetFileData): opts is PaletteSetFileData {
