@@ -24,7 +24,7 @@ import CPColorPicker from '../components/ColorPicker.vue';
 import CPEditableTitle from '@/components/EditableTitle.vue';
 import CPColorSliderLockup from '@/components/ColorSliderLockup.vue';
 import Palettes from '@/views/Palettes.vue';
-
+const PaletteStore = namespace('palettes');
 @Component({
   components: {
     CPEditableTitle,
@@ -37,20 +37,22 @@ import Palettes from '@/views/Palettes.vue';
 export default class VWPalette extends Vue {
   public selected: number = 0;
   public activeColor: Color = new Color();
-  @Prop() private index!: number;
-  @Getter('paletteByIndex') private paletteByIndex!: (index: number) => Palette;
-  @Getter('palette') private palette!: Palette;
-  @Action('updateColor') private updateColor!: (payload: updateColorPayload) => void;
-  @Action('setCurrentPalette') private setCurrentPalette!: (palette_idx: number) => void;
-  @Action('setPaletteName') private setPaletteNam!: (name: string) => void;
+  @Prop() private id!: string;
+  @PaletteStore.Getter('paletteById') private paletteById!: (id: string) => Palette;
+  @PaletteStore.Getter('indexById') private indexById!: (id: string) => number;
+  @PaletteStore.Getter('palette') private palette!: Palette;
+  @PaletteStore.Action('updateColor') private updateColor!: (payload: updateColorPayload) => void;
+  @PaletteStore.Action('setCurrent') private setCurrentPalette!: (palette_idx: number) => void;
+  @PaletteStore.Action('setName') private setPaletteNam!: (name: string) => void;
   private created() {
-    this.setCurrentPalette(this.index);
+    const idx = this.indexById(this.id);
+    this.setCurrentPalette(idx);
   }
   private handleSelect(selected: number) {
     this.selected = selected;
   }
   private selectColor(color: Color) {
-    this.updateColor({p_index: this.index, c_index: this.selected, color: this.activeColor});
+    this.updateColor({p_index: this.indexById(this.palette.id), c_index: this.selected, color});
   }
   private handlePaletteName(name: string) {
     this.setPaletteNam(name);

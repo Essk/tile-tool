@@ -7,7 +7,7 @@
       <div class="palettes mt-2">
         <template v-for="p_index in 16">
           <div class="palette" v-if=" typeof paletteSet.palettes[p_index - 1] !== 'undefined'"  :key="p_index">
-            <span v-for="(color, c_index) in paletteSet.palettes[p_index - 1].colors" :key="c_index" :style="{backgroundColor: color.hex}"></span>
+            <span v-for="(color, c_index) in paletteById(paletteSet.palettes[p_index - 1]).colors" :key="c_index" :style="{backgroundColor: color.hex}"></span>
           </div>
           <div v-else :key="p_index" class="w-full h-full border border-dashed border-grey">  </div>
         </template>
@@ -18,11 +18,15 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 import { PaletteSet } from '../utils/paletteSet';
+import { Palette } from '../utils/palette';
 import { Color } from '../utils/color';
+const Palettes = namespace('palettes');
 @Component({})
 export default class CPCompactPaletteSet extends Vue {
   @Prop() public paletteSet!: PaletteSet;
+  @Palettes.Getter('paletteById') private paletteById!: (id: string) => Palette;
 }
 </script>
 

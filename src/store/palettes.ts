@@ -23,7 +23,7 @@ const getters: GetterTree<PalettesState, any> = {
     palettes: (state) => state.palettes,
     palette: (state) => state.palettes[state.palette_idx],
     paletteById: (state) => (id: string) => state.palettes.find( (palette) => palette.id === id ),
-    paletteIndexById: (state) => (id: string) => state.palettes.findIndex( (ps) => ps.id === id ),
+    indexById: (state) => (id: string) => state.palettes.findIndex( (ps) => ps.id === id ),
     paletteByIndex: (state) => (index: number) => state.palettes[index],
 };
 

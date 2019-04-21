@@ -26,13 +26,6 @@ export default new Router({
         import(/* webpackChunkName: "paletteSets" */ './views/PaletteSets.vue'),
     },
     {
-      path: '/paletteSet/:id/palette/:index',
-      name: 'palette',
-      component: () =>
-        import(/* webpackChunkName: "palette" */ './views/Palette.vue'),
-      props: true,
-    },
-    {
       path: '/paletteSet/:id',
       name: 'paletteSet',
       component: () =>
@@ -51,6 +44,12 @@ export default new Router({
       name: 'tile',
       component: () =>
         import(/* webpackChunkName: "paletteSet" */ './views/Tile.vue'),
+      props: true,
+    },
+    {
+      path: '/palette/:id',
+      name: 'palette',
+      component: ( ) => import (/*webpackChunkName "palette" */ './views/Palette.vue'),
       props: true,
     },
   ],
