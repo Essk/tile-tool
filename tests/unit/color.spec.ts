@@ -1,4 +1,4 @@
-import { Color } from '@/utils/color';
+import { Color } from '@/primitives/color';
 
 describe('Color', () => {
  it('instantiates', () => {

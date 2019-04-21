@@ -5,7 +5,7 @@ import {
   createProtocol,
   installVueDevtools,
 } from 'vue-cli-plugin-electron-builder/lib';
-import { FileDataStore } from './utils/user-data';
+import { FileDataStore } from './primitives/user-data';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const prefs = new FileDataStore({
   configName: 'user-preferences',

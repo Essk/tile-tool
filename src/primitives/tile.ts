@@ -7,6 +7,7 @@ type Opts = {
     px?: number[];
     paletteSet?: string;
     currentPalette?: any;
+    defaultPalette?: any;
 };
 export type TileFileData = {
     _name: string;
@@ -14,6 +15,7 @@ export type TileFileData = {
     _px: number[];
     _paletteSet: string;
     _currentPalette: any;
+    _defaultPalette: any;
 };
 export class Tile extends FileEntity {
     public static hydrate(tileFile: TileFileData) {
@@ -25,6 +27,7 @@ export class Tile extends FileEntity {
     private _len: number;
     private _paletteSet: string;
     private _currentPalette: number;
+    private _defaultPalette: string;
     constructor(opts: Opts | TileFileData) {
         super();
         if (this.isFromFile(opts)) {
@@ -34,13 +37,15 @@ export class Tile extends FileEntity {
             this._px = opts._px ;
             this._paletteSet = opts._paletteSet;
             this._currentPalette = opts._currentPalette;
+            this._defaultPalette = opts._defaultPalette;
         } else {
             this._name = opts.name || 'new tile';
             this._id = opts.id || this.makeId();
             this._len = 64;
-            this._px = opts.px ? this.makePx(this._len, opts.px) : this.makePx(this._len) ;
+            this._px = opts.px ? this.makePx(this._len, opts.px) : this.makePx(this._len);
             this._paletteSet = opts.paletteSet || '';
             this._currentPalette =  this.validPalette(opts.currentPalette) ? opts.currentPalette : 0;
+            this._defaultPalette = opts.defaultPalette || '';
         }
     }
     public updatePx(idx: number, value: number) {
@@ -87,7 +92,12 @@ export class Tile extends FileEntity {
     set currentPalette(idx: number) {
         this._currentPalette = this.validPalette(idx) ? idx : 0 ;
     }
-
+    get defaultPalette(): string {
+        return this._defaultPalette;
+    }
+    set defaultPalette(paletteId: string) {
+        this._defaultPalette = paletteId;
+    }
     private validPalette(idx: number ): boolean {
         if (idx === undefined) {
             return false;

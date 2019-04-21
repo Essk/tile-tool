@@ -1,5 +1,5 @@
-import { FileDataStore } from '@/utils/user-data';
-import { Tile } from '@/utils/tile';
+import { FileDataStore } from '@/primitives/user-data';
+import { Tile } from '@/primitives/tile';
 import * as paletteSets from './paletteSet';
 type fsStoreState = {
     filestore: FileDataStore;

@@ -1,5 +1,5 @@
-import { Palette } from '@/utils/palette.ts';
-import { Color } from '@/utils/color';
+import { Palette } from '@/primitives/palette';
+import { Color } from '@/primitives/color';
 
 describe('Palette', () => {
   it('instantiates', () => {

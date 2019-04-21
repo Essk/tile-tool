@@ -1,6 +1,6 @@
 /* tslint:disable: no-shadowed-variable */
-import { PaletteSet, PaletteSetFileData } from '@/utils/paletteSet';
-import { Palette } from '@/utils/palette';
+import { PaletteSet, PaletteSetFileData } from '@/primitives/paletteSet';
+import { Palette } from '@/primitives/palette';
 import { GetterTree, ActionTree, MutationTree, Module } from 'vuex';
 import debounce from 'lodash/debounce';
 const namespaced = true;

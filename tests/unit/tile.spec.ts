@@ -1,4 +1,4 @@
-import { Tile } from '@/utils/tile.ts';
+import { Tile } from '@/primitives/tile';
 
 describe('Tile', () => {
   it('instantiates', () => {
