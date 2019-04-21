@@ -50,11 +50,11 @@ const actions: ActionTree<PSState, any> = {
         saveAllPSToTemp(rootState, state);
     },
     removePalette({commit, rootState, state, getters}, palette: Palette | string) {
-        const idToRemove = palette instanceof Palette
+        const idx = palette instanceof Palette
         ? getters.paletteIndexById(palette.id)
-        : getters.paletteByIndex(palette);
-        if (idToRemove >= 0 ) {
-            commit('deletePaletteByIndex', idToRemove);
+        : getters.paletteIndexById(palette);
+        if (idx >= 0 ) {
+            commit('deletePaletteByIndex', idx);
             saveAllPSToTemp(rootState, state);
         }
     },
