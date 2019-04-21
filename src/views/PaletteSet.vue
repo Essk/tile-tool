@@ -17,11 +17,11 @@
           </router-link>
           <BaseButton
             :disabled="paletteSet.palettes.length >= 16"
-            @click="prepareCopyPalette(palette)"
+            @click="prepareCopyPalette(paletteById(palette))"
             class=" flex-1 m-1  btn btn-sm btn-primary">Copy
             </BaseButton>
           <BaseButton 
-          @click="prepareDeletePalette(palette)"
+          @click="prepareDeletePalette(paletteById(palette))"
           class=" flex-1 m-1 btn btn-sm btn-danger">Delete
           </BaseButton>
         </div>
