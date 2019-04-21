@@ -37,8 +37,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
-import { Palette } from '../utils/palette';
-import { PaletteSet } from '../utils/paletteSet';
+import { Palette } from '@/primitives/palette';
+import { PaletteSet } from '@/primitives/paletteSet';
 import CPCompactPalette from '@/components/PaletteCompact.vue';
 import CPEditableTitle from '@/components/EditableTitle.vue';
 const PSStore = namespace('paletteSets');

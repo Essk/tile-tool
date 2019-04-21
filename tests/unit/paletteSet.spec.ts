@@ -1,6 +1,6 @@
-import { PaletteSet } from '@/utils/paletteSet.ts';
-import { Palette} from '@/utils/palette';
-import { Color } from '@/utils/color';
+import { PaletteSet } from '@/primitives/paletteSet';
+import { Palette} from '@/primitives/palette';
+import { Color } from '@/primitives/color';
 
 
 const palettes = [ 'jhkqwjdh', 'hldhdlqdkh' ];

@@ -13,7 +13,7 @@
 
 <script  lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Color } from '../utils/color';
+import { Color } from '@/primitives/color';
 import CPColorSlider from '@/components/ColorSlider.vue';
 import CPColorDetail from '../components/ColorDetail.vue';
 

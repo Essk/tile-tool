@@ -1,5 +1,5 @@
 /* tslint:disable: no-shadowed-variable */
-import { Palette, PaletteFileData } from '@/utils/palette';
+import { Palette, PaletteFileData } from '@/primitives/palette';
 import { GetterTree, ActionTree, MutationTree, Module } from 'vuex';
 import debounce from 'lodash/debounce';
 const namespaced: boolean = true;

@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Palette } from '@/utils/palette';
+import { Palette } from '@/primitives/palette';
 @Component({})
     export default class RemovePaletteDialog extends Vue  {
       @Prop() private modalProps!: RemovePaletteProps;

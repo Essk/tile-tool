@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Tile } from '../utils/tile';
+import { Tile } from '@/primitives/tile';
 @Component
 export default class CPTile extends Vue {
   @Prop() private tile!: Tile;

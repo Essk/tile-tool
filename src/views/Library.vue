@@ -40,8 +40,8 @@ import CPPalette from '../components/Palette.vue';
 import CPCompactPaletteSet from '@/components/PaletteSetCompact.vue';
 import CPCompactTile from '@/components/TileCompact.vue';
 import PaletteSets from '@/views/PaletteSets.vue';
-import { PaletteSet } from '@/utils/paletteSet';
-import { Tile } from '@/utils/tile';
+import { PaletteSet } from '@/primitives/paletteSet';
+import { Tile } from '@/primitives/tile';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
 const PSStore = namespace('paletteSets');
 @Component({

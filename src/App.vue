@@ -23,10 +23,10 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
-import { Tile } from '@/utils/tile';
-import { PaletteSet } from '@/utils/paletteSet';
-import { Color } from '@/utils/color';
-import { Palette } from '@/utils/palette';
+import { Tile } from '@/primitives/tile';
+import { PaletteSet } from '@/primitives/paletteSet';
+import { Color } from '@/primitives/color';
+import { Palette } from '@/primitives/palette';
 import Palettes from '@/views/Palettes.vue';
 import PaletteSets from '@/views/PaletteSets.vue';
 

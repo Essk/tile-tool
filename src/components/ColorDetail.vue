@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Color } from '../utils/color';
+import { Color } from '@/primitives/color';
 @Component({})
 export default class CPColorDetail extends Vue {
   @Prop() private color!: Color;

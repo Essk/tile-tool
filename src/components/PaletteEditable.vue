@@ -21,8 +21,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Palette } from '../utils/palette';
-import { Color } from '../utils/color';
+import { Palette } from '@/primitives/palette';
+import { Color } from '@/primitives/color';
 import CPPalette from '@/components/Palette.vue';
 @Component
 export default class CPPaletteEditable extends CPPalette {

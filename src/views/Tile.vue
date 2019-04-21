@@ -14,9 +14,9 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
-import { Palette } from '@/utils/palette';
-import { Color } from '@/utils/color';
-import { Tile } from '@/utils/tile';
+import { Palette } from '@/primitives/palette';
+import { Color } from '@/primitives/color';
+import { Tile } from '@/primitives/tile';
 import CPEditableTitle from '@/components/EditableTitle.vue';
 
 @Component({

@@ -1,5 +1,5 @@
 /* tslint:disable: no-shadowed-variable */
-import { Tile, TileFileData } from '@/utils/tile';
+import { Tile, TileFileData } from '@/primitives/tile';
 import { GetterTree, ActionTree, MutationTree, Module } from 'vuex';
 import debounce from 'lodash/debounce';
 

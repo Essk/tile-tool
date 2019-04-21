@@ -16,8 +16,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
-import { Palette } from '../utils/palette';
-import { Color } from '../utils/color';
+import { Palette } from '@/primitives/palette';
+import { Color } from '@/primitives/color';
 import CPPaletteEditable from '../components/PaletteEditable.vue';
 import CPColorDetail from '../components/ColorDetail.vue';
 import CPColorPicker from '../components/ColorPicker.vue';

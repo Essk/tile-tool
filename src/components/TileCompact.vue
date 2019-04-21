@@ -2,16 +2,16 @@
   <div class="compact-tile-wrap">
         <BaseSubsubtitle>
           {{ tile.name }}
-          <template slot="bottom" v-if="hasPaletteSet">bottolm</template>
-          <template slot="bottom" v-else>No palette set assigned </template>
+          <template slot="bottom" v-if="hasDefaultPalette">bottolm</template>
+          <template slot="bottom" v-else>No palette assigned </template>
         </BaseSubsubtitle>
 
-      <div class="tile mt-2" :class="hasPaletteSet ? '' : 'border-l border-b border-dashed border-grey'">
+      <div class="tile mt-2" :class="hasDefaultPalette ? '' : 'border-l border-b border-dashed border-grey'">
           <div v-for="(px, px_index) in tile.px" :key="px_index" 
           class="inline-block w-8 h-8 relative align-middle"
           :class="[
-            hasPaletteSet ? '' : ' border-dashed border-grey', 
-            hasPaletteSet && px_index === 0 ? 'border': 'border-t border-r', ] "
+            hasDefaultPalette ? '' : ' border-dashed border-grey', 
+            hasDefaultPalette && px_index === 0 ? 'border': 'border-t border-r', ] "
           >
           <span class="block w-4 h-4 p-1 bg-white absolute pin-r pin-b text-xs">
             {{ px }}
@@ -26,19 +26,19 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
-import { Palette } from '../utils/palette';
-import { PaletteSet } from '../utils/paletteSet';
-import { Tile } from '../utils/tile';
-import { Color } from '../utils/color';
+import { Palette } from '@/primitives/palette';
+import { PaletteSet } from '@/primitives/paletteSet';
+import { Tile } from '@/primitives/tile';
+import { Color } from '@/primitives/color';
 const PSStore = namespace('paletteSets');
 @Component({})
 export default class CPCompactTile extends Vue {
   @Prop() public tile!: Tile;
   @PSStore.Getter('paletteSetById') private paletteSetById!: (id: string) => PaletteSet;
 
-  get hasPaletteSet(): boolean {
+  get hasDefaultPalette(): boolean {
     return (
-      this.tile.paletteSet.includes('paletteSett')
+      this.tile.defaultPalette.includes('palette')
     );
   }
 

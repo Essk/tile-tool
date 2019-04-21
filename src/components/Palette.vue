@@ -13,8 +13,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Palette } from '../utils/palette';
-import { Color } from '../utils/color';
+import { Palette } from '@/primitives/palette';
+import { Color } from '@/primitives/color';
 @Component({})
 export default class CPPalette extends Vue {
   @Prop() public palette!: Palette;

@@ -19,9 +19,9 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Getter, Action, Mutation, namespace } from 'vuex-class';
-import { PaletteSet } from '../utils/paletteSet';
-import { Palette } from '../utils/palette';
-import { Color } from '../utils/color';
+import { PaletteSet } from '@/primitives/paletteSet';
+import { Palette } from '@/primitives/palette';
+import { Color } from '@/primitives/color';
 const Palettes = namespace('palettes');
 @Component({})
 export default class CPCompactPaletteSet extends Vue {
