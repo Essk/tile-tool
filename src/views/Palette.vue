@@ -49,9 +49,6 @@ export default class VWPalette extends Vue {
   private handleSelect(selected: number) {
     this.selected = selected;
   }
-  private handleActive(active: Color) {
-    this.activeColor = active;
-  }
   private selectColor(color: Color) {
     this.updateColor({p_index: this.index, c_index: this.selected, color: this.activeColor});
   }
