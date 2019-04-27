@@ -48,6 +48,27 @@ export class Project extends FileEntity {
         this._modified = createDate;
     }
   }
+  get name(): string {
+    return this._name;
+  }
+  get id(): string {
+    return this._id;
+  }
+  get created(): string {
+    return this._created;
+  }
+  get modified(): string {
+    return this._modified;
+  }
+  get paletteSet(): string {
+    return this._paletteSet;
+  }
+  get tiles(): string[] {
+    return this._tiles;
+  }
+  get notes(): string {
+    return this._notes;
+  }
   private isFromFile(opts: Opts | ProjectFileData): opts is ProjectFileData {
     return (opts as ProjectFileData)._id !== undefined;
   }
