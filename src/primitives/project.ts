@@ -1,6 +1,7 @@
 import { FileEntity } from './Storeable';
 
 import uniqid from 'uniqid';
+import { strict } from 'assert';
 type Opts = {
   name?: string;
   notes?: string;
@@ -48,8 +49,21 @@ export class Project extends FileEntity {
         this._modified = createDate;
     }
   }
+  public addTile(newTile: string): void {
+    if (this.tiles.length < 512 ) {
+      this.tiles.push(newTile);
+    }
+  }
+  public removeTile(idx: number): void {
+    if (idx < this.tiles.length ) {
+      this.tiles.splice(idx, 1);
+    }
+  }
   get name(): string {
     return this._name;
+  }
+  set name(name: string) {
+    this._name = name;
   }
   get id(): string {
     return this._id;
@@ -63,11 +77,22 @@ export class Project extends FileEntity {
   get paletteSet(): string {
     return this._paletteSet;
   }
+  set paletteSet(newPs: string) {
+    this._paletteSet = newPs;
+  }
   get tiles(): string[] {
     return this._tiles;
   }
+  set tiles(newTiles: string[]) {
+    if (newTiles.length <= 512 ) {
+      this._tiles.splice(0, this.tiles.length, ...newTiles);
+    }
+  }
   get notes(): string {
     return this._notes;
+  }
+  set notes(notes: string) {
+    this._notes = notes;
   }
   private isFromFile(opts: Opts | ProjectFileData): opts is ProjectFileData {
     return (opts as ProjectFileData)._id !== undefined;

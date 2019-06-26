@@ -5,6 +5,7 @@ import { paletteSets } from './paletteSet';
 import { tiles } from './tiles';
 import { modals } from './modals';
 import { palettes } from './palettes';
+import { projects } from './projects';
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export const store = new Vuex.Store( {
         tiles,
         modals,
         palettes,
+        projects,
     },
     actions : {
         init({rootState, dispatch}) {
